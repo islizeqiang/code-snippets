@@ -1,0 +1,23 @@
+{
+  "name": "code-snippets",
+  "version": "1.0.0",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/islizeqiang/code-snippets.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/islizeqiang/code-snippets/issues"
+  },
+  "homepage": "https://github.com/islizeqiang/code-snippets#readme",
+  "devDependencies": {
+    "@umijs/fabric": "^2.0.7",
+    "eslint": "^6.8.0",
+    "husky": "^4.2.5",
+    "lint-staged": "^10.1.3",
+    "prettier": "^2.0.2",
+    "stylelint": "^13.3.1"
+  }
+}

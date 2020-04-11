@@ -1,0 +1,9 @@
+/lambda/
+/dist
+/scripts
+/config
+.history
+/release
+/src/renderer/public
+/src/main
+/build
