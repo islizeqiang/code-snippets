@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 const mFs = require('fs');
 const path = require('path');
 const { spawn } = require('child_process');
@@ -54,7 +56,7 @@ class WavPlayer {
         throw new Error('The wav file can not be played on this platform.');
     }
 
-    this._proc.on('close', code => {
+    this._proc.on('close', (code) => {
       if (code === 0) {
         if (this.loop) {
           this._play();

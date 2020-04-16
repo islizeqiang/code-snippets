@@ -1,9 +1,10 @@
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable guard-for-in */
 /**
  * @param {string} s
  * @return {boolean}
  */
 const isValid = function (s) {
-  const valid = true;
   const stack = [];
   const mapper = {
     '{': '}',
@@ -25,7 +26,9 @@ const isValid = function (s) {
 
   if (stack.length > 0) return false;
 
-  return valid;
+  return true;
 };
 
 console.log(isValid('([])'));
+
+console.log('([])'.split(''));

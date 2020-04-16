@@ -1,6 +1,5 @@
-/* eslint-disable no-param-reassign */
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable func-names */
+/* eslint-disable */
+
 import { pie, select, hsl, interpolate } from 'd3';
 
 const piechart3D = {};

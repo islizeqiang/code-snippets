@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import React, { createRef } from 'react';
 import echarts from 'echarts/lib/echarts';
 import { isString } from '@/utils/common';

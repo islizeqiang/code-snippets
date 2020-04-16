@@ -2,6 +2,11 @@
   "name": "code-snippets",
   "version": "1.0.0",
   "description": "",
+  "scripts": {
+    "lint:fix": "npm run lint-fix:js && npm run lint-fix:style",
+    "lint-fix:js": "eslint --fix --ext .js,.jsx,.ts,.tsx --format=pretty ./src",
+    "lint-fix:style": "stylelint --fix \"src/**/*.less\" --syntax less"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/islizeqiang/code-snippets.git"
