@@ -1,4 +1,13 @@
 // 合并两个有序数组
+
+/**
+ * 输入:
+    nums1 = [1,2,3,0,0,0], m = 3
+    nums2 = [2,5,6],       n = 3
+
+    输出: [1,2,2,3,5,6]
+ */
+
 const merge = (nums1, m, nums2, n) => {
   const num = [...nums1];
   let len1 = m - 1;
