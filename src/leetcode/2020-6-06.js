@@ -49,10 +49,19 @@
 // console.log('cache.get(4): ', cache.get(4)); // 返回  4
 
 class LRUCache {
-  constructor(capacity) {
-    this.capacity = capacity;
+  constructor(limit) {
+    this.maxLength = limit;
     this.cache = new Map();
   }
+
+  put = (key, value) => {
+    if (this.cache.has(key)) {
+      this.cache.delete(key);
+    } else if (this.cache.size === this.maxLength) {
+      this.cache.delete(this.cache.keys().next().value);
+    }
+    this.cache.set(key, value);
+  };
 
   get = (key) => {
     if (!this.cache.has(key)) {
@@ -63,24 +72,13 @@ class LRUCache {
     this.cache.set(key, value);
     return value;
   };
-
-  put = (key, value) => {
-    if (this.cache.has(key)) {
-      this.cache.delete(key);
-    } else if (this.cache.size === this.capacity) {
-      this.cache.delete(this.cache.keys().next().value);
-    }
-    this.cache.set(key, value);
-  };
 }
 
 /* 缓存容量 */
-const cache = new LRUCache(3);
-
+const cache = new LRUCache(2);
 cache.put(1, 1);
 cache.put(2, 2);
 console.log('cache.get(1): ', cache.get(1)); // 返回  1
-cache.put(2, 88);
 cache.put(3, 3); // 该操作会使得密钥 2 作废
 console.log('cache.get(2): ', cache.get(2)); // 返回 -1 (未找到)
 cache.put(4, 4); // 该操作会使得密钥 1 作废
