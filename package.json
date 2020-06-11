@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "pretty": "prettier --write \"./src/**/*.{js,jsx,json,md}\"",
-    "lint-fix:js": "eslint --fix --ext .js,.jsx,.ts,.tsx --format=pretty ./src",
+    "lint-fix:js": "eslint --fix --ext .js,.jsx,.ts,.tsx ./src && npm run pretty",
     "lint-fix:style": "stylelint --fix \"src/**/*.less\" --syntax less"
   },
   "repository": {
