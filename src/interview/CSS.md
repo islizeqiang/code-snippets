@@ -756,3 +756,434 @@ flex 有两个快捷值：`auto`和`none`，分别代表`1 1 auto`（有剩余�
   align-self: auto | flex-start | flex-end | center | baseline | stretch;
 }
 ```
+
+### CSS 盒模型
+
+CSS 盒模型是前端的基石，这个问题由浅入深，由易到难，可以依次问出下面几个问题
+
+- 基本概念：标准模型 + IE 模型
+- 标准模型 和 IE 模型的区别
+- CSS 如何设置这两种模型
+- JS 如何设置和获取盒模型对应的宽和高
+- 实例题（根据盒模型解释边距重叠）
+- BFC（边距重叠解决方案）
+
+1、基本概念所有 HTML 元素可以看作盒子，在 CSS 中，"box model"这一术语是用来设计和布局时使用。 CSS 盒模型本质上是一个盒子，封装周围的 HTML 元素，它包括：边距，边框，填充，和实际内容。盒模型允许我们在其它元素和周围元素边框之间的空间放置元素。下面的图片说明了盒子模型(Box Model)：
+
+2、标准模型与 IE 模型的区别标准模型与 IE 模型的区别在于宽高的计算方式不同。标准模型计算元素的宽高只算 content 的宽高，IE 模型是 content + padding + border 的总尺寸。假如 content 宽高是 100*100px，padding 为 10px，border 为 10px，margin 为 10px，那么在标准模型下，这个元素的宽为 100px，高为 100px。* *IE 模型下，宽为 100px + 2*10px(左右 padding) + 2*10px(左右 border) = 140px;* *高为 100px + 2*10px(上下 padding) + 2\*10px(上下 border) = 140px;
+
+3、如何设置这两种模型
+
+```css
+/* 设置标准模型 */
+box-sizing: content-box;
+
+/* 设置IE模型 */
+box-sizing: border-box;
+```
+
+box-sizing 的默认值是 content-box，即默认标准模型
+
+### 重置（resetting）CSS 和 标准化（normalizing）CSS 的区别是什么？你会选择哪种方式，为什么？
+
+- **重置（Resetting）**： 重置意味着除去所有的浏览器默认样式。对于页面所有的元素，像`margin`、`padding`、`font-size`这些样式全部置成一样。你将必须重新定义各种元素的样式。
+- **标准化（Normalizing）**： 标准化没有去掉所有的默认样式，而是保留了有用的一部分，同时还纠正了一些常见错误。
+
+当需要实现非常个性化的网页设计时，我会选择重置的方式，因为我要写很多自定义的样式以满足设计需求，这时候就不再需要标准化的默认样式了。
+
+### 请阐述`Float`定位的工作原理。需要重点看下
+
+浮动（float）是 CSS 定位属性。浮动元素从网页的正常流动中移出，但是保持了部分的流动性，会影响其他元素的定位（比如文字会围绕着浮动元素）。这一点与绝对定位不同，绝对定位的元素完全从文档流中脱离。
+
+CSS 的`clear`属性通过使用`left`、`right`、`both`，让该元素向下移动（清除浮动）到浮动元素下面。
+
+如果父元素只包含浮动元素，那么该父元素的高度将塌缩为 0。我们可以通过清除（clear）从浮动元素后到父元素关闭前之间的浮动来修复这个问题。
+
+有一种 hack 的方法，是自定义一个`.clearfix`类，利用伪元素选择器`::after`清除浮动。[另外还有一些方法](https://link.zhihu.com/?target=https%3A//css-tricks.com/all-about-floats/%23article-header-id-4)，比如添加空的``和设置浮动元素父元素的`overflow`属性。与这些方法不同的是，`clearfix`方法，只需要给父元素添加一个类，定义如下：
+
+```css
+.clearfix::after {
+  display: block;
+  clear: both;
+  content: '';
+}
+```
+
+值得一提的是，把父元素属性设置为`overflow: auto`或`overflow: hidden`，会使其内部的子元素形成块格式化上下文（Block Formatting Context），并且父元素会扩张自己，使其能够包围它的子元素。
+
+### 请阐述`z-index`属性，并说明如何形成层叠上下文（stacking context）。
+
+CSS 中的`z-index`属性控制重叠元素的垂直叠加顺序。`z-index`只能影响`position`值不是`static`的元素。
+
+没有定义`z-index`的值时，元素按照它们出现在 DOM 中的顺序堆叠（层级越低，出现位置越靠上）。非静态定位的元素（及其子元素）将始终覆盖静态定位（static）的元素，而不管 HTML 层次结构如何。
+
+层叠上下文是包含一组图层的元素。 在一组层叠上下文中，其子元素的`z-index`值是相对于该父元素而不是 document root 设置的。每个层叠上下文完全独立于它的兄弟元素。如果元素 B 位于元素 A 之上，则即使元素 A 的子元素 C 具有比元素 B 更高的`z-index`值，元素 C 也永远不会在元素 B 之上.
+
+每个层叠上下文是自包含的：当元素的内容发生层叠后，整个该元素将会在父层叠上下文中按顺序进行层叠。少数 CSS 属性会触发一个新的层叠上下文，例如`opacity`小于 1，`filter`不是`none`，`transform`不是`none`。
+
+### 请阐述块格式化上下文（Block Formatting Context）及其工作原理。
+
+块格式上下文（BFC）是 Web 页面的可视化 CSS 渲染的部分，是块级盒布局发生的区域，也是浮动元素与其他元素交互的区域。
+
+一个 HTML 盒（Box）满足以下任意一条，会创建块格式化上下文：
+
+- `float`的值不是`none`.
+- `position`的值不是`static`或`relative`.
+- `display`的值是`table-cell`、`table-caption`、`inline-block`、`flex`、或`inline-flex`。
+- `overflow`的值不是`visible`。
+
+在 BFC 中，每个盒的左外边缘都与其包含的块的左边缘相接。
+
+两个相邻的块级盒在垂直方向上的边距会发生合并（collapse）。更多内容请参考[边距合并（margin collapsing）](https://link.zhihu.com/?target=https%3A//www.sitepoint.com/web-foundations/collapsing-margins/)。
+
+### 参考
+
+- [https://developer.mozilla.org/en-US/docs/Web/Guide/CSS/Block_formatting_context](https://link.zhihu.com/?target=https%3A//developer.mozilla.org/en-US/docs/Web/Guide/CSS/Block_formatting_context)
+
+### 有哪些清除浮动的技术，都适用哪些情况？
+
+- 空`div`方法：``。
+- Clearfix 方法：上文使用`.clearfix`类已经提到。
+- `overflow: auto`或`overflow: hidden`方法：上文已经提到。
+
+在大型项目中，我会使用 Clearfix 方法，在需要的地方使用`.clearfix`。设置`overflow: hidden`的方法可能使其子元素显示不完整，当子元素的高度大于父元素时。
+
+### 请解释什么是雪碧图（css sprites），以及如何实现？
+
+雪碧图是把多张图片整合到一张上的图片。它被运用在众多使用了很多小图标的网站上（Gmail 在使用）。实现方法：
+
+1. 使用生成器将多张图片打包成一张雪碧图，并为其生成合适的 CSS。
+2. 每张图片都有相应的 CSS 类，该类定义了`background-image`、`background-position`和`background-size`属性。
+3. 使用图片时，将相应的类添加到你的元素中。
+
+好处：
+
+- 减少加载多张图片的 HTTP 请求数（一张雪碧图只需要一个请求）。但是对于 HTTP2 而言，加载多张图片不再是问题。
+- 提前加载资源，防止在需要时才在开始下载引发的问题，比如只出现在`:hover`伪类中的图片，不会出现闪烁。
+
+### 参考
+
+- [https://css-tricks.com/css-sprites/](https://link.zhihu.com/?target=https%3A//css-tricks.com/css-sprites/)
+
+### 如何解决不同浏览器的样式兼容性问题？
+
+- 在确定问题原因和有问题的浏览器后，使用单独的样式表，仅供出现问题的浏览器加载。这种方法需要使用服务器端渲染。
+- 使用已经处理好此类问题的库，比如 Bootstrap。
+- 使用 `autoprefixer` 自动生成 CSS 属性前缀。
+- 使用 Reset CSS 或 Normalize.css。
+
+### 如何为功能受限的浏览器提供页面？ 使用什么样的技术和流程？
+
+- 优雅的降级：为现代浏览器构建应用，同时确保它在旧版浏览器中正常运行。
+- Progressive enhancement - The practice of building an application for a base level of user experience, but adding functional enhancements when a browser supports it.
+- 渐进式增强：构建基于用户体验的应用，但在浏览器支持时添加新增功能。
+- 利用 [caniuse.com](https://link.zhihu.com/?target=https%3A//caniuse.com/) 检查特性支持。
+- 使用 `autoprefixer` 自动生成 CSS 属性前缀。
+- 使用 [Modernizr](https://link.zhihu.com/?target=https%3A//modernizr.com/)进行特性检测
+
+### 有什么不同的方式可以隐藏内容（使其仅适用于屏幕阅读器）？
+
+这些方法与可访问性（a11y）有关。
+
+- `visibility: hidden`：元素仍然在页面流中，并占用空间。
+- `width: 0; height: 0`：使元素不占用屏幕上的任何空间，导致不显示它。
+- `position: absolute; left: -99999px`： 将它置于屏幕之外。
+- `text-indent: -9999px`：这只适用于`block`元素中的文本。
+- Metadata： 例如通过使用 [http://Schema.org](https://link.zhihu.com/?target=http%3A//Schema.org)，RDF 和 JSON-LD。
+- WAI-ARIA：如何增加网页可访问性的 W3C 技术规范。
+
+即使 WAI-ARIA 是理想的解决方案，我也会采用绝对定位方法，因为它具有最少的注意事项，适用于大多数元素，而且使用起来非常简单。
+
+### 参考
+
+- [https://www.w3.org/TR/wai-aria-1.1/](https://link.zhihu.com/?target=https%3A//www.w3.org/TR/wai-aria-1.1/)
+- [https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA](https://link.zhihu.com/?target=https%3A//developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA)
+- [http://a11yproject.com/](https://link.zhihu.com/?target=http%3A//a11yproject.com/)
+
+### 除了`screen`，你还能说出一个 @media 属性的例子吗？
+
+- all 适用于所有设备。
+- print 为了加载合适的文档到当前使用的可视窗口. 需要提前咨询 paged media（媒体屏幕尺寸）, 以满足个别设备网页尺寸不匹配等问题。
+- screen 主要适用于彩色的电脑屏幕
+- speech 解析 speech 这个合成器. 注意: CSS2 已经有一个相似的媒体类型叫 aural
+
+[https://developer.mozilla.org/z](https://link.zhihu.com/?target=https%3A//developer.mozilla.org/zh-CN/docs/Web/CSS/%40media)
+
+### 编写高效的 CSS 应该注意什么？
+
+首先，浏览器从最右边的选择器，即关键选择器（key selector），向左依次匹配。根据关键选择器，浏览器从 DOM 中筛选出元素，然后向上遍历被选元素的父元素，判断是否匹配。选择器匹配语句链越短，浏览器的匹配速度越快。避免使用标签和通用选择器作为关键选择器，因为它们会匹配大量的元素，浏览器必须要进行大量的工作，去判断这些元素的父元素们是否匹配。
+
+### 使用 CSS 预处理的优缺点分别是什么？
+
+优点：
+
+- 提高 CSS 可维护性。
+- 易于编写嵌套选择器。
+- 引入变量，增添主题功能。可以在不同的项目中共享主题文件。
+- 通过混合（Mixins）生成重复的 CSS。
+- 将代码分割成多个文件。不进行预处理的 CSS，虽然也可以分割成多个文件，但需要建立多个 HTTP 请求加载这些文件。
+
+缺点：
+
+- 需要预处理工具。
+- 重新编译的时间可能会很慢。
+
+### 对于你使用过的 CSS 预处理，说说喜欢和不喜欢的地方？
+
+喜欢：
+
+- 绝大部分优点上题以及提过。
+- Less 用 JavaScript 实现，与 NodeJS 高度结合。
+
+**Dislikes:**
+
+- 我通过`node-sass`使用 Sass，它用 C ++ 编写的 LibSass 绑定。在 Node 版本切换时，我必须经常重新编译。
+- Less 中，变量名称以`@`作为前缀，容易与 CSS 关键字混淆，如`@media`、`@import`和`@font-face`。
+
+### 如何实现一个使用非标准字体的网页设计？
+
+使用`@font-face`并为不同的`font-weight`定义`font-family`。
+
+### 解释浏览器如何确定哪些元素与 CSS 选择器匹配。
+
+这部分与上面关于编写高效的 CSS 有关。浏览器从最右边的选择器（关键选择器）根据关键选择器，浏览器从 DOM 中筛选出元素，然后向上遍历被选元素的父元素，判断是否匹配。选择器匹配语句链越短，浏览器的匹配速度越快。
+
+例如，对于形如`p span`的选择器，浏览器首先找到所有`元素，并遍历它的父元素直到根元素以找到`元素。对于特定的`，只要找到一个`，就知道'`已经匹配并停止继续匹配。
+
+### 描述伪元素及其用途。
+
+CSS 伪元素是添加到选择器的关键字，去选择元素的特定部分。它们可以用于装饰（`:first-line`，`:first-letter`）或将元素添加到标记中（与 content:...组合），而不必修改标记（`:before`，`:after`）。
+
+- `:first-line`和`:first-letter`可以用来修饰文字。
+- 上面提到的`.clearfix`方法中，使用`clear: both`来添加不占空间的元素。
+- 使用`:before`和`after`展示提示中的三角箭头。鼓励关注点分离，因为三角被视为样式的一部分，而不是真正的 DOM。如果不使用额外的 HTML 元素，只用 CSS 样式绘制三角形是不太可能的。
+
+### `display`的属性值都有哪些？
+
+- `none`, `block`, `inline`, `inline-block`, `table`, `table-row`, `table-cell`, `list-item`.
+
+### `relative`、`fixed`、`absolute`和`static`四种定位有什么区别？
+
+经过定位的元素，其`position`属性值必然是`relative`、`absolute`、`fixed`或`sticky`。
+
+- `static`：默认定位属性值。该关键字指定元素使用正常的布局行为，即元素在文档常规流中当前的布局位置。此时 top, right, bottom, left 和 z-index 属性无效。
+- `relative`：该关键字下，元素先放置在未添加定位时的位置，再在不改变页面布局的前提下调整元素位置（因此会在此元素未添加定位时所在位置留下空白）。
+- `absolute`：不为元素预留空间，通过指定元素相对于最近的非 static 定位祖先元素的偏移，来确定元素位置。绝对定位的元素可以设置外边距（margins），且不会与其他边距合并。
+- `fixed`：不为元素预留空间，而是通过指定元素相对于屏幕视口（viewport）的位置来指定元素位置。元素的位置在屏幕滚动时不会改变。打印时，元素会出现在的每页的固定位置。fixed 属性会创建新的层叠上下文。当元素祖先的 transform 属性非 none 时，容器由视口改为该祖先。
+- `sticky`：盒位置根据正常流计算(这称为正常流动中的位置)，然后相对于该元素在流中的 flow root（BFC）和 containing block（最近的块级祖先元素）定位。在所有情况下（即便被定位元素为 `table` 时），该元素定位均不对后续元素造成影响。当元素 B 被粘性定位时，后续元素的位置仍按照 B 未定位时的位置来确定。`position: sticky` 对 `table` 元素的效果与 `position: relative` 相同。
+
+### 参考
+
+- [https://developer.mozilla.org/en/docs/Web/CSS/position](https://link.zhihu.com/?target=https%3A//developer.mozilla.org/en/docs/Web/CSS/position)
+
+### 你使用过哪些现有的 CSS 框架？你是如何改进它们的？
+
+- **Bootstrap**： 更新周期缓慢。Bootstrap 4 已经处于 alpha 版本将近两年了。添加了在页面中广泛使用的微调按钮组件。
+- **Semantic UI**：源代码结构使得自定义主题很难理解。非常规主题系统的使用体验很差。外部库的路径需要硬编码（hard code）配置。变量重新赋值没有 Bootstrap 设计得好。
+- **Bulma**： 需要很多非语义的类和标记，显得很多余。不向后兼容，以至于升级版本后，会破坏应用的正常运行。
+
+### 你了解 CSS Flex 和 Grid 吗？
+
+Flex 主要用于一维布局，而 Grid 则用于二维布局。
+
+### Flex
+
+flex 容器中存在两条轴， 横轴和纵轴， 容器中的每个单元称为 flex item。
+
+在容器上可以设置 6 个属性： _flex-direction_ flex-wrap _flex-flow_ justify-content _align-items_ align-content
+
+注意：当设置 flex 布局之后，子元素的 float、clear、vertical-align 的属性将会失效。
+
+### Flex 项目属性
+
+有六种属性可运用在 item 项目上: 1. order 2. flex-basis 3. flex-grow 4. flex-shrink 5. flex 6. align-self
+
+### Grid
+
+CSS 网格布局用于将页面分割成数个主要区域，或者用来定义组件内部元素间大小、位置和图层之间的关系。
+
+像表格一样，网格布局让我们能够按行或列来对齐元素。 但是，使用 CSS 网格可能还是比 CSS 表格更容易布局。 例如，网格容器的子元素可以自己定位，以便它们像 CSS 定位的元素一样，真正的有重叠和层次。
+
+### 响应式设计与自适应设计有何不同？
+
+响应式设计和自适应设计都以提高不同设备间的用户体验为目标，根据视窗大小、分辨率、使用环境和控制方式等参数进行优化调整。
+
+响应式设计的适应性原则：网站应该凭借一份代码，在各种设备上都有良好的显示和使用效果。响应式网站通过使用媒体查询，自适应栅格和响应式图片，基于多种因素进行变化，创造出优良的用户体验。就像一个球通过膨胀和收缩，来适应不同大小的篮圈。
+
+自适应设计更像是渐进式增强的现代解释。与响应式设计单一地去适配不同，自适应设计通过检测设备和其他特征，从早已定义好的一系列视窗大小和其他特性中，选出最恰当的功能和布局。与使用一个球去穿过各种的篮筐不同，自适应设计允许使用多个球，然后根据不同的篮筐大小，去选择最合适的一个。
+
+### 参考
+
+- [https://developer.mozilla.org/en-
+
+### 你有没有使用过视网膜分辨率的图形？当中使用什么技术？
+
+我倾向于使用更高分辨率的图形（显示尺寸的两倍）来处理视网膜显示。更好的方法是使用媒体查询，像`@media only screen and (min-device-pixel-ratio: 2) { ... }`，然后改变`background-image`。
+
+对于图标类的图形，我会尽可能使用 svg 和图标字体，因为它们在任何分辨率下，都能被渲染得十分清晰。
+
+还有一种方法是，在检查了`window.devicePixelRatio`的值后，利用 JavaScript 将``的`src`属性修改，用更高分辨率的版本进行替换。
+
+### 什么情况下，用`translate()`而不用绝对定位？什么时候，情况相反。
+
+`translate()`是`transform`的一个值。改变`transform`或`opacity`不会触发浏览器重新布局（reflow）或重绘（repaint），只会触发复合（compositions）。而改变绝对定位会触发重新布局，进而触发重绘和复合。`transform`使浏览器为元素创建一个 GPU 图层，但改变绝对定位会使用到 CPU。 因此`translate()`更高效，可以缩短平滑动画的绘制时间。
+
+当使用`translate()`时，元素仍然占据其原始空间（有点像`position：relative`），这与改变绝对定位不同。
+
+### 参考
+
+- [https://www.paulirish.com/2012/why-moving-elements-with-translate-is-better-than-posabs-topleft/](https://link.zhihu.com/?target=https%3A//www.paulirish.com/2012/why-moving-elements-with-translate-is-better-than-posabs-topleft/)
+
+### 其他答案
+
+- [https://neal.codes/blog/front-end-interview-css-questions](https://link.zhihu.com/?target=https%3A//neal.codes/blog/front-end-interview-css-questions)
+- [https://quizlet.com/28293152/front-end-interview-questions-css-flash-cards/](https://link.zhihu.com/?target=https%3A//quizlet.com/28293152/front-end-interview-questions-css-flash-cards/)
+- [http://peterdoes.it/2015/12/03/a-personal-exercise-front-end-job-interview-questions-and-my-answers-all/](https://link.zhihu.com/?target=http%3A//peterdoes.it/2015/12/03/a-personal-exercise-front-end-job-interview-questions-and-my-answers-all/)
+
+### 行内元素、块级元素区别
+
+行内元素：和其他元素都在一行上，高度、行高及外边距和内边距都不可改变，文字图片的宽度不可改变，只能容纳文本或者其他行内元素；其中 img 是行元素
+
+块级元素：总是在新行上开始，高度、行高及外边距和内边距都可控制，可以容纳内敛元素和其他元素；行元素转换为块级元素方式：display：block；
+
+### CSS 中 link 和@import 的区别
+
+- link 属于 HTML 标签，而@import 是 CSS 提供的
+- 页面被加载的时，link 会同时被加载，而@import 引用的 CSS 会等到页面被加载完再加载
+- import 只在 IE5 以上才能识别，而 link 是 HTML 标签，无兼容问题
+- link 方式的样式的权重 高于@import 的权重
+
+### 如何用 css 实现瀑布流布局
+
+利用 column-count 和 break-inside 这两个 CSS3 属性即可，复制如下代码即可察看效果
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <style>
+      body {
+        margin: 0;
+      }
+      .waterfall-container {
+        width: 100%;
+
+        /* 分几列 */
+        column-count: 2;
+
+        /* 列间距 */
+        column-gap: 10px;
+      }
+
+      .waterfall-item {
+        width: 100%;
+        height: 100px;
+        margin-bottom: 10px;
+        color: #fff;
+        font-size: 40px;
+        text-align: center;
+        column-gap: 0;
+        background: #ddd;
+        break-inside: avoid;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="waterfall-container">
+      <div class="waterfall-item" style="height: 100px">1</div>
+      <div class="waterfall-item" style="height: 300px">2</div>
+      <div class="waterfall-item" style="height: 400px">3</div>
+      <div class="waterfall-item" style="height: 100px">4</div>
+      <div class="waterfall-item" style="height: 300px">5</div>
+      <div class="waterfall-item" style="height: 600px">6</div>
+      <div class="waterfall-item" style="height: 400px">7</div>
+      <div class="waterfall-item" style="height: 300px">8</div>
+      <div class="waterfall-item" style="height: 700px">9</div>
+      <div class="waterfall-item" style="height: 100px">10</div>
+    </div>
+  </body>
+</html>
+```
+
+## 文本超出部分显示省略号
+
+### 单行
+
+```text
+overflow: hidden;
+white-space: nowrap;
+text-overflow: ellipsis;
+```
+
+### 多行
+
+```text
+-webkit-box-orient: vertical;
+-webkit-line-clamp: 3;
+overflow: hidden;
+```
+
+## 利用伪元素画三角
+
+```css
+.info-tab {
+  position: relative;
+}
+.info-tab::after {
+  position: absolute;
+  top: 0;
+  border: 4px solid transparent;
+  border-top-color: #2c8ac2;
+  content: '';
+}
+```
+
+## 已知父级盒子的宽高，子级 img 宽高未知，想让 img 铺满父级盒子且图片不能变形
+
+需要用到`css`的`object-fit`属性
+
+```css
+div {
+  width: 200px;
+  height: 200px;
+}
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+```
+
+[MDN](https://link.zhihu.com/?target=https%3A//developer.mozilla.org/zh-CN/docs/Web/CSS/object-fit)
+
+## css hack 是什么
+
+由于不同的浏览器，比如 Internet Explorer 6,Internet Explorer 7,Mozilla Firefox 等，对 CSS 的解析认识不一样，因此会导致生成的页面效果不一样，得不到我们所需要的页面效果。
+
+这个时候我们就需要针对不同的浏览器去写不同的 CSS，让它能够同时兼容不同的浏览器，能在不同的浏览器中也能得到我们想要的页面效果。
+
+这个针对不同的浏览器写不同的 CSS code 的过程，就叫 CSS hack,也叫写 CSS hack。
+
+具体请看： [http://www.cnblogs.com/Renyi-Fan/p](https://link.zhihu.com/?target=http%3A//www.cnblogs.com/Renyi-Fan/p/9006084.html)
+
+## 过渡与动画的区别是什么
+
+- transition 可以在一定的时间内实现元素的状态过渡为最终状态，用于模拟以一种过渡动画效果，但是功能有限，只能用于制作简单的动画效果而动画属性
+- animation 可以制作类似 Flash 动画，通过关键帧控制动画的每一步，控制更为精确，从而可以制作更为复杂的动画。
+
+## 什么是外边距合并
+
+外边距合并指的是，当两个垂直外边距相遇时，它们将形成一个外边距。
+
+合并后的外边距的高度等于两个发生合并的外边距的高度中的较大者。
+
+## 去除 inline-block 元素间间距的方法
+
+- 移除空格
+- 使用 margin 负值
+- 使用 font-size:0
+- letter-spacing
+- word-spacing
+
+更详细的介绍请看:[去除 inline-block 元素间间距的 N 种方法](https://link.zhihu.com/?target=https%3A//www.zhangxinxu.com/wordpress/2012/04/inline-block-space-remove-%E5%8E%BB%E9%99%A4%E9%97%B4%E8%B7%9D/)
