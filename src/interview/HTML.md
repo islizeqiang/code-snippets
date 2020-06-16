@@ -47,16 +47,6 @@ window 对象既为 javascript 访问浏览器提供 API，同时在 ECMAScript 
   - 当浏览器遇到 href 会并行下载资源并且不会停止对当前文档的处理。(同时也是为什么建议使用 link 方式加载 CSS，而不是使用 @import 方式)
   - 当浏览器解析到 src ，会暂停其他资源的下载和处理，直到将该资源加载或执行完毕。(这也是 script 标签为什么放在底部而不是头部的原因)
 
-## script 标签中 defer 和 async 的区别是什么？
-
-默认情况下，脚本的下载和执行将会按照文档的先后顺序同步进行。当脚本下载和执行的时候，文档解析就会被阻塞，在脚本下载和执行完成之后文档才能往下继续进行解析。
-
-下面是 async 和 defer 两者区别：
-
-- 当 script 中有 defer 属性时，脚本的加载过程和文档加载是异步发生的，等到文档解析完(DOMContentLoaded 事件发生)脚本才开始执行。
-- 当 script 有 async 属性时，脚本的加载过程和文档加载也是异步发生的。但脚本下载完成后会停止 HTML 解析，执行脚本，脚本解析完继续 HTML 解析。
-- 当 script 同时有 async 和 defer 属性时，执行效果和 async 一致。
-
 ## docoment,window,html,body 的层级关系
 
 ```
