@@ -383,7 +383,7 @@ p::after {
 
 单行
 
-```css
+```text
 overflow: hidden;
 white-space: nowrap;
 text-overflow: ellipsis;
@@ -391,7 +391,7 @@ text-overflow: ellipsis;
 
 多行
 
-```css
+```text
 -webkit-box-orient: vertical;
 -webkit-line-clamp: 3;
 overflow: hidden;
