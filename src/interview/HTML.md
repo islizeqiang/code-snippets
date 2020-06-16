@@ -1,3 +1,5 @@
+[TOC]
+
 ## DOM 和 BOM 有什么区别
 
 - DOM
