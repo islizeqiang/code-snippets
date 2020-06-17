@@ -265,12 +265,6 @@ header,form,ul,ol,table,article,div,hr,aside,figure,canvas,video,audio,footer
 
 将不想要自动完成的 `form` 或 `input` 设置为 `autocomplete=off`
 
-## 进程和线程的区别
-
-进程：资源分配的最小单位
-
-线程：资源调度的最小单位
-
 ## 输入一个 URL 到浏览器显示发生了什么
 
 必考！
