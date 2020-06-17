@@ -430,13 +430,23 @@ CSS 中的`z-index`属性控制重叠元素的垂直叠加顺序。`z-index`只�
 
 ## 说说 z-index 有什么需要注意的地方
 
-可能面试官最想知道的是下面这张图：
+- 使用 z-index 时，必须同时使用 position 属性，而且属性值必须是 relative、absolute、fixed。
+
+- z-index 是根据父元素的 z-index 值决定的，子元素给再大卵用都没有。
 
 ![enter image description here](https://user-gold-cdn.xitu.io/2019/8/30/16ce245b90085292?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
 
-这里附上张鑫旭的文章[深入理解 CSS 中的层叠上下文和层叠顺序](https://www.zhangxinxu.com/wordpress/2016/01/understand-css-stacking-context-order-z-index/)。
-
 面试官追问固定定位的元素是相对于什么进行定位？相对定位会脱离正常文档流么？绝对定位是相对于什么元素进行定位？
+
+- static 正常文档流，每个块级元素占据自己的位置，元素与元素之间不产生重叠。
+
+- relative 未脱离文档流，相对默认位置（即 static 时的位置）进行偏移，必须搭配 top...使用指定偏移的方向和距离，
+- absolute 脱离文档流，相对除去 static 定位以外第一个父元素进行定位，否则就会是整个网页根元素 body
+- fixed 脱离文档流，相对视口（viewport，浏览器窗口）进行偏移
+- sticky 未脱离文档流，被理解成为 relative 和 fixed 的结合，总是会创建一个新的层叠上下文。必须搭配 top...等属性使用，否则等同于 relative 定位
+  - 其父级元素不能有任何`overflow:visible`以外的 overflow 设置，否则不生效
+  - 如果父级元素设置和粘性元素等高的固定的 height 高度值，则不生效
+  - 同一个父容器中的 sticky 元素，如果定位值相等，则会重叠；如果属于不同父元素，且这些父元素正好紧密相连，则会鸠占鹊巢，挤开原来的元素，形成依次占位的效果
 
 ## relative 的定位规则
 
