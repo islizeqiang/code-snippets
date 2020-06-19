@@ -55,11 +55,16 @@ class MyPromise1 {
   };
 }
 
-new MyPromise1((resolve) => {
-  resolve(1);
-  // setTimeout(() => {
-  //   resolve(1);
-  // }, 1000);
-}).then((value) => {
-  console.log(value);
+const aPromise = new MyPromise1((resolve) => {
+  setTimeout(() => {
+    resolve(1);
+  }, 1000);
 });
+
+aPromise.then((data) => {
+  console.log('data: ', data);
+  return 23;
+});
+// .then((value) => {
+//   console.log('value', value);
+// });
