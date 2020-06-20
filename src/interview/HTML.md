@@ -2,21 +2,53 @@
 
 ## DOM 和 BOM 有什么区别
 
-- DOM
+- DOM （Document Object Model，文档对象模型）
 
-Document Object Model，文档对象模型
+  它是将html文档抽象成一个对象，作用是为了将web页面与JS连接起来，可以让JS去操作和修改。document是它的根本对象，它表示文档本身。
 
-DOM 是为了操作文档出现的 API，document 是其的一个对象
+- BOM （Browser Object Model，浏览器对象模型）
 
-DOM 和文档有关，这里的文档指的是网页，也就是 html 文档。DOM 和浏览器无关，他关注的是网页本身的内容。
+  它是将浏览器窗口抽象成一个对象，作用是为了将浏览器窗口与JS连接起来，可以通过JS去操作。window是他的核心对象，它表示一个包含DOM文档的窗口。也就说window对象里面包含了DOM对象。在浏览器环境下，JS运行时默认的全局对象就是window对象。
 
-- BOM
+## docoment,window,html,body 的层级关系
 
-Browser Object Model，浏览器对象模型
+```reStructuredText
+window > document > html > body
+```
 
-BOM 是为了操作浏览器出现的 API，window 是其的一个对象
+- `window`是`BOM`的核心对象，它一方面用来获取或设置浏览器的属性和行为，另一方面作为一个全局对象。
+- `document`对象是一个跟文档相关的对象，拥有一些操作文档内容的功能。但是地位没有`window`高。
+- `html`元素对象和`document`元素对象是属于`html`文档的`DOM`对象，可以认为就是`html`源代码中那些标签所化成的对象。他们跟`div、select`什么对象没有根本区别。
 
-window 对象既为 javascript 访问浏览器提供 API，同时在 ECMAScript 中充当 Global 对象
+## DOCTYPE 及其作用
+
+声明文档的类型，不再采用HTML4的标准，采用自己的一套新的HTML5标准
+
+DTD (Document type definition，文档类型定义) 是一系列的语法规则，用来定义 XML 或 HTML 的文件类型。浏览器会使用它来判断文档类型，决定使用何种协议来解析，以及切换浏览器模式。 **DOCTYPE 是用来声明文档类型和 DTD 规范的**，一个主要的用途便是文件的合法性验证。如果文件代码不合法，那么浏览器解析时便会出一些差错。注意：<!DOCTYPE> 声明不区分大小写。HTML5 的文档解析不再基于 SGML(Standard Generalized Markup Language)标准，而是形成了自己的一套标准。
+
+1. HTML5
+
+```html
+<!DOCTYPE html>
+```
+
+2. HTML 4.01 Strict
+
+这个 DTD 包含所有 HTML 元素和属性，但不包括表象或过时的元素（如 font ）。框架集是不允许的。
+
+```html
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+```
+
+3. HTML 4.01 Frameset
+
+这个 DTD 与 HTML 4.01 Transitional 相同，但是允许使用框架集内容。
+
+```html
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/h>
+```
+
+
 
 ## src 和 href 的区别是什么？
 
@@ -47,15 +79,7 @@ window 对象既为 javascript 访问浏览器提供 API，同时在 ECMAScript 
   - 当浏览器遇到 href 会并行下载资源并且不会停止对当前文档的处理。(同时也是为什么建议使用 link 方式加载 CSS，而不是使用 @import 方式)
   - 当浏览器解析到 src ，会暂停其他资源的下载和处理，直到将该资源加载或执行完毕。(这也是 script 标签为什么放在底部而不是头部的原因)
 
-## docoment,window,html,body 的层级关系
-
-```
-window > document > html > body
-```
-
-- `window`是`BOM`的核心对象，它一方面用来获取或设置浏览器的属性和行为，另一方面作为一个全局对象。
-- `document`对象是一个跟文档相关的对象，拥有一些操作文档内容的功能。但是地位没有`window`高。
-- `html`元素对象和`document`元素对象是属于`html`文档的`DOM`对象，可以认为就是`html`源代码中那些标签所化成的对象。他们跟`div、select`什么对象没有根本区别。
+- 
 
 ## 移动端中不同手机 html 默认的字体大小都是一样的吗
 
@@ -84,32 +108,6 @@ window.getComputedStyle(dom).width / height;
 
 //获取渲染后即时运行的宽高，值是准确的。兼容性也很好，一般用来获取元素的绝对位置，getBoundingClientRect()会得到4个值：left, top, width, height
 dom.getBoundingClientRect().width / height;
-```
-
-## DOCTYPE 及其作用
-
-DTD (Document type definition，文档类型定义) 是一系列的语法规则，用来定义 XML 或 HTML 的文件类型。浏览器会使用它来判断文档类型，决定使用何种协议来解析，以及切换浏览器模式。 **DOCTYPE 是用来声明文档类型和 DTD 规范的**，一个主要的用途便是文件的合法性验证。如果文件代码不合法，那么浏览器解析时便会出一些差错。注意：<!DOCTYPE> 声明不区分大小写。HTML5 的文档解析不再基于 SGML(Standard Generalized Markup Language)标准，而是形成了自己的一套标准。
-
-1. HTML5
-
-```html
-<!DOCTYPE html>
-```
-
-2. HTML 4.01 Strict
-
-这个 DTD 包含所有 HTML 元素和属性，但不包括表象或过时的元素（如 font ）。框架集是不允许的。
-
-```html
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-```
-
-3. HTML 4.01 Frameset
-
-这个 DTD 与 HTML 4.01 Transitional 相同，但是允许使用框架集内容。
-
-```html
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/h>
 ```
 
 ## meta 标签属性有哪些？
