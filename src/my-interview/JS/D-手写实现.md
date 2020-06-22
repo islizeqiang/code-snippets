@@ -1,6 +1,6 @@
 [TOC]
 
-## 手写一个const
+## 手写一个 const
 
 ```js
 function _const(key, value) {
@@ -16,7 +16,7 @@ obj.b = 2; //可以正常给obj的属性赋值
 obj = {}; //无法赋值新对象
 ```
 
-## 手写一个let
+## 手写一个 let
 
 ```js
 (function () {
@@ -27,8 +27,6 @@ obj = {}; //无法赋值新对象
 
 console.log(i); // Uncaught ReferenceError: i is not defined
 ```
-
-
 
 ## 手写一个 new
 
@@ -68,12 +66,12 @@ const xxx = _new(a, 23);
 console.log('xxx: ', xxx);
 ```
 
-## 手写一个bind
+## 手写一个 bind
 
 ```js
 Function.prototype.myBind = function (context, ...args) {
   if (typeof this !== 'function') {
-     throw new TypeError('Error');
+    throw new TypeError('Error');
   }
 
   const self = this;
@@ -90,7 +88,7 @@ Function.prototype.myBind = function (context, ...args) {
 };
 ```
 
-## 手写一个call
+## 手写一个 call
 
 ```js
 Function.prototype.myCall = function (context, ...args) {
@@ -108,7 +106,7 @@ Function.prototype.myCall = function (context, ...args) {
 };
 ```
 
-## 手写一个apply
+## 手写一个 apply
 
 ```js
 Function.prototype.myApply = function (context, args) {
@@ -131,8 +129,6 @@ Function.prototype.myApply = function (context, args) {
   return result;
 };
 ```
-
-
 
 ## 手写一个 instanceof
 
@@ -207,7 +203,7 @@ const debounce = (fn, ms = 0) => {
 };
 ```
 
-## 手写一个Promise
+## 手写一个 Promise
 
 ```js
 const PENDING = 'pending';
@@ -277,37 +273,37 @@ new MyPromise1((resolve) => {
 });
 ```
 
-## 手写一个Promise.resolve
+## 手写一个 Promise.resolve
 
 实现要点
 
 - 传参为一个 Promise, 则直接返回它。
 - 传参为一个 thenable 对象，返回的 Promise 会跟随这个对象，`采用它的最终状态`作为`自己的状态`。
-- 其他情况，直接返回以该值为成功状态的promise对象。
+- 其他情况，直接返回以该值为成功状态的 promise 对象。
 
 ```js
 Promise.resolve = (params) => {
   if (params instanceof Promise) return params;
-  return new Promise((reslove,reject) => {
-    if (params && params.then &&  typeof params.then === 'function') {
-      params.then(reslove,reject)
+  return new Promise((reslove, reject) => {
+    if (params && params.then && typeof params.then === 'function') {
+      params.then(reslove, reject);
     } else {
-      reslove(params)
+      reslove(params);
     }
-  })
-}
+  });
+};
 ```
 
-## 手写一个Promise.reject
+## 手写一个 Promise.reject
 
-返回一个带有拒绝原因的Promise对象
+返回一个带有拒绝原因的 Promise 对象
 
 ```js
-Promise.reject = reason => {
-  return new Promise((reslove,reject) => {
-    reject(reason)
-  })
-}
+Promise.reject = (reason) => {
+  return new Promise((reslove, reject) => {
+    reject(reason);
+  });
+};
 ```
 
 ## 手写一个 Promise.finally
@@ -505,7 +501,7 @@ Array.prototype.reduce = function (callbackfn, initialValue) {
 };
 ```
 
-## 手写一个数组filter 方法
+## 手写一个数组 filter 方法
 
 ```js
 Array.prototype.filter = function (callbackfn, thisArg) {
@@ -552,6 +548,7 @@ Array.prototype.push = function (...items) {
   return newLength;
 };
 ```
+
 ```js
 Array.prototype.pop = function () {
   let O = Object(this);
@@ -567,4 +564,3 @@ Array.prototype.pop = function () {
   return value;
 };
 ```
-

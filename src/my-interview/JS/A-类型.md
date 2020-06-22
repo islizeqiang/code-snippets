@@ -26,7 +26,7 @@ NaN.toString(); // 'NaN'
 (1).toString()(1).toString();
 ```
 
-## 判断是否是数组Object.prototype.toString.call() 、 instanceof 以及 Array.isArray()
+## 判断是否是数组 Object.prototype.toString.call() 、 instanceof 以及 Array.isArray()
 
 结论：toString.call 和 isArray 的性能一样差，instanceof 稍好，constructor 性能最好
 
@@ -141,7 +141,7 @@ console.log({ a: 1 } == true); //false
 console.log({ a: 1 } == '[object Object]'); //true
 ```
 
-## 类型转换问题 
+## 类型转换问题
 
 1. [] == ![]
 
@@ -153,7 +153,7 @@ console.log({ a: 1 } == '[object Object]'); //true
 
    0 == 0 ， 结果为 true
 
-2. 
+2.
 
 ```js
 String('11') == new String('11');
@@ -166,8 +166,6 @@ String('11') === new String('11');
 // ==` 的时候，实际运行的是
 String('11') == new String('11').toString();
 ```
-
-
 
 ## JS 中类型转换有哪几种？
 
@@ -264,7 +262,7 @@ a > -1; // true
 var obj = {
   value: 3,
   [Symbol.toPrimitive]() {
-    return 2
+    return 2;
   },
   valueOf: () => 4,
   toString: () => 5,

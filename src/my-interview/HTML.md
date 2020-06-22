@@ -42,24 +42,21 @@ window > document > html > body
 
 - API：增加`拖放API`、`地理定位`、`SVG绘图`、`canvas绘图`、`Web Worker`、`WebSocket`
 
-  自定义SVG
+  自定义 SVG
 
   ```html
-   <svg
-        width={width}
-        height="61"
-        version="1.1"
-        viewBox={`0 0 ${width} 61`}
-        xmlns="http://www.w3.org/2000/svg"
-        >
-     <path
-           d={`M1 60 L1 6 L${width - 40} 6 L${width - 36} 1 L${width - 1} 1 L${width - 1} 60 Z`}
-           style={{
-           fill: 'none',
-           stroke: color,
-           strokeWidth: 2,
-           }}
-           />
+  <svg
+    width="{width}"
+    height="61"
+    version="1.1"
+    viewBox="{`0"
+    0
+    ${width}
+    61`}
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d={`M1 60 L1 6 L${width - 40} 6 L${width - 36} 1 L${width - 1} 1 L${width - 1} 60 Z`}
+    style={{ fill: 'none', stroke: color, strokeWidth: 2, }} />
   </svg>
   ```
 
@@ -75,7 +72,7 @@ window > document > html > body
 
 **async(异步) 模式**
 
-async 模式下，JS 不会阻塞浏览器做任何其它的事情。它的加载是异步的，当它加载结束，JS 脚本会立即执行。如果是多个，执行顺序和加载顺序无关，在load事件之前。
+async 模式下，JS 不会阻塞浏览器做任何其它的事情。它的加载是异步的，当它加载结束，JS 脚本会立即执行。如果是多个，执行顺序和加载顺序无关，在 load 事件之前。
 
 ```
 <script async src="index.js"></script>
@@ -98,8 +95,6 @@ defer 模式下，JS 的加载是异步的，执行是被推迟的。等整个�
 ![img](https://pic1.zhimg.com/80/v2-42fde5cc6d7a45752139097065235560_720w.jpg)
 
 <img src="https://pic2.zhimg.com/80/v2-7e207a11164c964809ec9016371a6a79_720w.jpg" alt="img"  />
-
-
 
 ## meta 标签属性有哪些？
 
@@ -146,34 +141,32 @@ defer 模式下，JS 的加载是异步的，执行是被推迟的。等整个�
 - http-equiv 属性
 
 ```html
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <!-- expires指定网页的过期时间。一旦网页过期，必须从服务器上下载。 -->
-<meta http-equiv="expires" content="Fri, 12 Jan 2020 18:18:18 GMT"/>
+<meta http-equiv="expires" content="Fri, 12 Jan 2020 18:18:18 GMT" />
 <!-- 等待一定的时间刷新或跳转到其他url。下面1表示1秒 -->
-<meta http-equiv="refresh" content="1; url=https://www.baidu.com"/>
+<meta http-equiv="refresh" content="1; url=https://www.baidu.com" />
 <!-- 禁止浏览器从本地缓存中读取网页，即浏览器一旦离开网页在无法连接网络的情况下就无法访问到页面。 -->
-<meta http-equiv="pragma" content="no-cache"/>
+<meta http-equiv="pragma" content="no-cache" />
 <!-- 也是设置cookie的一种方式，并且可以指定过期时间 -->
-<meta http-equiv="set-cookie" content="name=value expires=Fri, 12 Jan 2001 18:18:18 GMT,path=/"/>
+<meta http-equiv="set-cookie" content="name=value expires=Fri, 12 Jan 2001 18:18:18 GMT,path=/" />
 <!-- 使用浏览器版本 -->
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <!-- 针对WebApp全屏模式，隐藏状态栏/设置状态栏颜色，content的值为default | black | black-translucent -->
 <meta name="apple-mobile-web-app-status-bar-style" content="black-transl" />
 <!--把`http`请求换为`https`-->
-<meta http-equiv ="Content-Security-Policy" content="upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
 ```
 
 ## src 和 href 的区别是什么？
 
-- href是超文本引用，用于确定当前文档与资源之间的引用关系，会并行下载不会阻塞文档的解析
+- href 是超文本引用，用于确定当前文档与资源之间的引用关系，会并行下载不会阻塞文档的解析
 
-  
+```html
+<a href="http://www.baidu.com"></a> <link type="text/css" rel="stylesheet" href="common.css" />
+```
 
-  ```html
-  <a href="http://www.baidu.com"></a> <link type="text/css" rel="stylesheet" href="common.css" />
-  ```
-
-- src是source，表示下载资源并替换当前内容，会暂停文档的解析，直到资源加载完成。
+- src 是 source，表示下载资源并替换当前内容，会暂停文档的解析，直到资源加载完成。
 
   ```html
   <img src="img/girl.jpg"></img>
@@ -244,16 +237,16 @@ header,form,ul,ol,table,article,div,hr,aside,figure,canvas,video,audio,footer
 - 优点：
 
   1. iframe 能够原封不动的把嵌入的网页展现出来。
-2. 我们通过iframe将所有文件资源都展示出来，只要后端给到一个url便可展示，包括img，video，网页url
 
-* 缺点：
+2. 我们通过 iframe 将所有文件资源都展示出来，只要后端给到一个 url 便可展示，包括 img，video，网页 url
 
-  1. SEO不友好
+- 缺点：
 
-  4. 创建比一般的 DOM 元素慢了 1-2 个数量级
+  1. SEO 不友好
+
+  2. 创建比一般的 DOM 元素慢了 1-2 个数量级
+
 6. iframe 标签会阻塞页面的的加载
-
-
 
 ## 什么是渐进式渲染（progressive rendering）？
 
@@ -266,8 +259,6 @@ header,form,ul,ol,table,article,div,hr,aside,figure,canvas,video,audio,footer
 - 图片懒加载——页面上的图片不会一次性全部加载。当用户滚动页面到图片部分时，JavaScript 将加载并显示图像。
 - 确定显示内容的优先级（分层次渲染）——为了尽快将页面呈现给用户，页面只包含基本的最少量的 CSS、脚本和内容，然后可以使用延迟加载脚本或监听`DOMContentLoaded`/`load`事件加载其他资源和内容。
 - 异步加载 HTML 片段——当页面通过后台渲染时，把 HTML 拆分，通过异步请求，分块发送给浏览器。
-
-
 
 ## 输入一个 URL 到浏览器显示发生了什么
 
@@ -287,7 +278,7 @@ header,form,ul,ol,table,article,div,hr,aside,figure,canvas,video,audio,footer
 
    由于数据包是通过 IP 地址传给对方的，所以将域名解析成 IP 地址的过程就叫 DNS 解析。域名系统 Domain Name System（DNS）
 
-   注意：跟DNS服务器进行查询时，采用UDP协议，因为一般返回内容不超过512字节，而且不用经过三次握手，使服务器负载更低，响应更快。
+   注意：跟 DNS 服务器进行查询时，采用 UDP 协议，因为一般返回内容不超过 512 字节，而且不用经过三次握手，使服务器负载更低，响应更快。
 
 4. 建立 TCP 连接
 

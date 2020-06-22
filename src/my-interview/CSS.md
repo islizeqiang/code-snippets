@@ -6,185 +6,6 @@
 
 题目：假设高度已知，请写出三栏布局，其中左栏、右栏宽度各为 300px，中间自适应。解答：可以有很多种布局方式，这里列出五种：float 布局，absolute 布局，flex 布局，table 布局，grid 布局，代码如下：
 
-```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>三栏布局</title>
-    <link rel="stylesheet" href="" />
-    <style type="text/css" media="screen">
-      html * {
-        margin: 0;
-        padding: 0;
-      }
-    </style>
-  </head>
-  <body>
-    <section class="layout float">
-      <style type="text/css">
-        .layout.float .wrapper > div {
-          min-height: 100px;
-        }
-        .layout.float .left {
-          float: left;
-          width: 300px;
-          background: red;
-        }
-        .layout.float .center {
-          background: yellow;
-        }
-        .layout.float .right {
-          float: right;
-          width: 300px;
-          background: blue;
-        }
-      </style>
-      <article class="wrapper">
-        <div class="left"></div>
-        <div class="right"></div>
-        <div class="center">
-          <h1>float布局</h1>
-          1.我是float布局的中间部分 2.我是float布局的中间部分
-        </div>
-      </article>
-    </section>
-
-    <section class="layout absolute">
-      <style type="text/css">
-        .layout.absolute .wrapper {
-          width: 100%;
-          margin-top: 20px;
-        }
-        .layout.absolute .wrapper > div {
-          min-height: 100px;
-        }
-        .layout.absolute .left {
-          position: absolute;
-          left: 0;
-          width: 300px;
-          background: red;
-        }
-        .layout.absolute .center {
-          position: absolute;
-          right: 300px;
-          left: 300px;
-          background: yellow;
-        }
-        .layout.absolute .right {
-          position: absolute;
-          right: 0;
-          width: 300px;
-          background: blue;
-        }
-      </style>
-      <article class="wrapper">
-        <div class="left"></div>
-        <div class="center">
-          <h1>absolute布局</h1>
-          1.我是absolute布局的中间部分 2.我是absolute布局的中间部分
-        </div>
-        <div class="right"></div>
-      </article>
-    </section>
-
-    <section class="layout flex">
-      <style type="text/css" media="screen">
-        .layout.flex .wrapper {
-          display: flex;
-          width: 100%;
-          min-height: 100px;
-          margin-top: 140px;
-        }
-        .layout.flex .left {
-          width: 300px;
-          background: red;
-        }
-        .layout.flex .center {
-          flex: 1;
-          background: yellow;
-        }
-        .layout.flex .right {
-          width: 300px;
-          background: blue;
-        }
-      </style>
-      <article class="wrapper">
-        <div class="left"></div>
-        <div class="center">
-          <h1>flex布局</h1>
-          1.我是flex布局的中间部分 2.我是flex布局的中间部分
-        </div>
-        <div class="right"></div>
-      </article>
-    </section>
-
-    <section class="layout table">
-      <style type="text/css" media="screen">
-        .layout.table .wrapper {
-          display: table;
-          width: 100%;
-          min-height: 100px;
-          margin-top: 20px;
-        }
-        .layout.table .left {
-          display: table-cell;
-          width: 300px;
-          background: red;
-        }
-        .layout.table .center {
-          display: table-cell;
-          background: yellow;
-        }
-        .layout.table .right {
-          display: table-cell;
-          width: 300px;
-          background: blue;
-        }
-      </style>
-      <article class="wrapper">
-        <div class="left"></div>
-        <div class="center">
-          <h1>table布局</h1>
-          1.我是table布局的中间部分 2.我是table布局的中间部分
-        </div>
-        <div class="right"></div>
-      </article>
-    </section>
-
-    <section class="layout grid">
-      <style type="text/css" media="screen">
-        .layout.grid .wrapper {
-          display: grid;
-          grid-template-rows: 100px;
-          grid-template-columns: 300px auto 300px;
-          width: 100%;
-          margin-top: 20px;
-        }
-        .layout.grid .left {
-          background: red;
-        }
-        .layout.grid .center {
-          background: yellow;
-        }
-        .layout.grid .right {
-          background: blue;
-        }
-      </style>
-      <article class="wrapper">
-        <div class="left"></div>
-        <div class="center">
-          <h1>grid布局</h1>
-          1.我是grid布局的中间部分 2.我是grid布局的中间部分
-        </div>
-        <div class="right"></div>
-      </article>
-    </section>
-  </body>
-</html>
-```
-
 #### div 垂直水平居中布局
 
 ```html
@@ -274,26 +95,29 @@ div.child {
 }
 ```
 
-## 请阐述 BFC 及其工作原理。
+## 行内元素、块级元素区别
 
-块格式上下文（BFC）是 Web 页面的可视化 CSS 渲染的部分，是块级盒布局发生的区域，也是浮动元素与其他元素交互的区域。
+行内元素：和其他元素都在一行上，高度、行高及外边距和内边距都不可改变，文字图片的宽度不可改变，只能容纳文本或者其他行内元素
 
-一个 HTML 盒（Box）满足以下任意一条，会创建块格式化上下文：
+```
+span img a input button select
+```
 
-- `float`的值不是`none`.
-- `position`的值不是`static`或`relative`.
-- `display`的值是`table-cell`、`table-caption`、`inline-block`、`flex`、或`inline-flex`。
-- `overflow`的值不是`visible`。
+块级元素：总是在新行上开始，高度、行高及外边距和内边距都可控制，可以容纳内敛元素和其他元素；行内元素转换为块级元素方式：display：block；
+
+```
+div table form canvas header section
+```
 
 ## BFC 及其应用
 
 BFC 就是块级格式上下文，是页面盒模型布局中的一种 CSS 渲染模式，相当于一个独立的容器，里面的元素和外部的元素相互不影响。创建 BFC 的方式有：
 
 1. html 根元素
-2. float 浮动
-3. 绝对定位
+2. float 浮动 值不为 none
+3. positon 的值不是 static 和 relative
 4. overflow 不为 visiable
-5. display 为表格布局或者弹性布局
+5. `display`的值是`table-cell`、`table-caption`、`inline-block`、`flex`、或`inline-flex`。
 
 BFC 主要的作用是：
 
@@ -329,19 +153,23 @@ BFC 作用：
 .parent { overflow:hidden; } .float { float:left; }
 ```
 
-## 已知如下代码，如何修改才能让图片宽度为 300px ？注意下面代码不可修改。
-
-> <img src="1.jpg" style="width:480px !important;">
-
-1. `<img src="1.jpg" style="width:480px !important; max-width: 300px">`
-2. `<img src="1.jpg" style="width:480px !important; transform: scale(0.625, 1);" >`
-3. `<img src="1.jpg" style="width:480px !important; width:300px !important;">`
-
 ## css 选择器优先级
 
-**!important > 行内样式>ID 选择器 > 类选择器 > 标签 > 通配符 > 继承 > 浏览器默认属性**
+!important > 行内样式>ID 选择器 > 类选择器 > 标签 > 通配符 > 继承 > 浏览器默认属性
 
-## 如何用 css 或 js 实现多行文本溢出省略效果，考虑兼容性
+## 已知如下代码，如何修改才能让图片宽度为 300px ？注意下面代码不可修改。
+
+```html
+<img src="1.jpg" style="width:480px !important;" />
+```
+
+```html
+<img src="1.jpg" style="width:480px !important; max-width: 300px" />
+<img src="1.jpg" style="width:480px !important; transform: scale(0.625, 1);" />
+<img src="1.jpg" style="width:480px !important; width:300px !important;" />
+```
+
+## 如何用 css 实现多行 单行文本溢出省略效果
 
 ```css
 /* 单行： */
@@ -354,91 +182,45 @@ BFC 作用：
 /* 多行： */
 
 .multi-line {
-  display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 3;
   overflow: hidden;
 }
-
-/* 兼容： */
-p {
-  position: relative;
-  max-height: 40px;
-  overflow: hidden;
-  line-height: 20px;
-}
-
-p::after {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  padding-left: 40px;
-  background: -webkit-linear-gradient(left, transparent, #fff 55%);
-  background: -o-linear-gradient(right, transparent, #fff 55%);
-  background: -moz-linear-gradient(right, transparent, #fff 55%);
-  background: linear-gradient(to right, transparent, #fff 55%);
-  content: '...';
-}
-```
-
-## 文本超出部分显示省略号
-
-单行
-
-```text
-overflow: hidden;
-white-space: nowrap;
-text-overflow: ellipsis;
-```
-
-多行
-
-```text
--webkit-box-orient: vertical;
--webkit-line-clamp: 3;
-overflow: hidden;
 ```
 
 ## 伪类和伪元素的区别
 
-伪类用于当已有元素处于的某个状态时，为其添加对应的样式，这个状态是根据用户行为而动态变化的。比如说，当用户悬停在指定的元素时，我们可以通过:hover 来描述这个元素的状态。虽然它和普通的 css 类相似，可以为已有的元素添加样式，但是它只有处于 dom 树无法描述的状态下才能为元素添加样式，所以将其称为伪类。
+相同点
 
-伪元素用于创建一些不在文档树中的元素，并为其添加样式。比如说，我们可以通过:before 来在一个元素前增加一些文本，并为这些文本添加样式。虽然用户可以看到这些文本，但是这些文本实际上不在文档树中。
+- 都是用来修饰不在文档树中的部分
 
-- 相同点 都是用来修饰不在文档树中的部分
-- 不同点
-  - 有没有创建一个文档树之外的元素
-  - CSS3 规范中要求使用双冒号(::)表示伪元素，用单冒号(:)表示伪类
+不同点
 
-## 描述伪元素及其用途。
+- 伪类用来表示已有元素处于某种状态时的样式，例如 hover, visited
 
-CSS 伪元素是添加到选择器的关键字，去选择元素的特定部分。它们可以用于装饰（`:first-line`，`:first-letter`）或将元素添加到标记中（与 content:...组合），而不必修改标记（`:before`，`:after`）。
+  用一个冒号：
 
-- `:first-line`和`:first-letter`可以用来修饰文字。
-- 上面提到的`.clearfix`方法中，使用`clear: both`来添加不占空间的元素。
-- 使用`:before`和`after`展示提示中的三角箭头。鼓励关注点分离，因为三角被视为样式的一部分，而不是真正的 DOM。如果不使用额外的 HTML 元素，只用 CSS 样式绘制三角形是不太可能的。
+- 伪元素创建一些不在文档树中的元素，并为其添加样式，例如可通过 before 在元素前添加内容。用双冒号：：
 
-## 请阐述`z-index`属性，并说明如何形成层叠上下文（stacking context）。
+  - `::first-line`和`::first-letter`可以用来修饰文字。
+  - `::before` 可以用来清除浮动
+  - 可以做三角形
 
-CSS 中的`z-index`属性控制重叠元素的垂直叠加顺序。`z-index`只能影响`position`值不是`static`的元素。
+- CSS3 规范中要求使用双冒号(::)表示伪元素，用单冒号(:)表示伪类
 
-没有定义`z-index`的值时，元素按照它们出现在 DOM 中的顺序堆叠（层级越低，出现位置越靠上）。非静态定位的元素（及其子元素）将始终覆盖静态定位（static）的元素，而不管 HTML 层次结构如何。
+## 说说 z-index 和 position
 
-层叠上下文是包含一组图层的元素。 在一组层叠上下文中，其子元素的`z-index`值是相对于该父元素而不是 document root 设置的。每个层叠上下文完全独立于它的兄弟元素。如果元素 B 位于元素 A 之上，则即使元素 A 的子元素 C 具有比元素 B 更高的`z-index`值，元素 C 也永远不会在元素 B 之上.
-
-每个层叠上下文是自包含的：当元素的内容发生层叠后，整个该元素将会在父层叠上下文中按顺序进行层叠。少数 CSS 属性会触发一个新的层叠上下文，例如`opacity`小于 1，`filter`不是`none`，`transform`不是`none`。
-
-## 说说 z-index 有什么需要注意的地方
-
-- 使用 z-index 时，必须同时使用 position 属性，而且属性值必须是 relative、absolute、fixed。
+- 使用 z-index 时，必须同时使用 position 属性，而且属性值必须是 relative、absolute、fixed、sticky。即不为 static
 
 - z-index 是根据父元素的 z-index 值决定的，子元素给再大卵用都没有。
+
+  在一组层叠上下文中，其子元素的`z-index`值是相对于该父元素而不是 document root 设置的
 
 ![enter image description here](https://user-gold-cdn.xitu.io/2019/8/30/16ce245b90085292?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
 
 面试官追问固定定位的元素是相对于什么进行定位？相对定位会脱离正常文档流么？绝对定位是相对于什么元素进行定位？
 
-- static 正常文档流，每个块级元素占据自己的位置，元素与元素之间不产生重叠。
+- static 正常文档流，每个块级元素占据自己的位置，元素与元素之间不产生重叠。此时 top, right, bottom, left 和 z-index 属性无效。
 
 - relative 未脱离文档流，相对默认位置（即 static 时的位置）进行偏移，必须搭配 top...使用指定偏移的方向和距离，
 - absolute 脱离文档流，相对除去 static 定位以外第一个父元素进行定位，否则就会是整个网页根元素 body
@@ -448,82 +230,22 @@ CSS 中的`z-index`属性控制重叠元素的垂直叠加顺序。`z-index`只�
   - 如果父级元素设置和粘性元素等高的固定的 height 高度值，则不生效
   - 同一个父容器中的 sticky 元素，如果定位值相等，则会重叠；如果属于不同父元素，且这些父元素正好紧密相连，则会鸠占鹊巢，挤开原来的元素，形成依次占位的效果
 
-## relative 的定位规则
+## display 的属性值都有哪些？
 
-- 相对于该元素在文档中的初始位置进行定位。通过 “left”、”top”、”right” 以及 “bottom” 属性来设置此元素相对于自身位置的偏移。
-- 如果他原来在常规流的默认位置改变了，那他也会跟着变位置，永远围着整个 body 自己原来的那一小块老地方转。所以说相对定位没有脱离文档流。
-
-## 脱离文档流是会呈现什么样的效果呢？
-
-脱离文档流，也就是**将元素从普通的布局排版中拿走**，其他盒子在定位的时候，会当做脱离文档流的元素不存在而进行定位。
-
-而在`CSS`中，使用`float`和设置`position:absolute`都会使得元素脱离文档流。只不过它两的区别是：
-
-使用`float`脱离文档流时，其他盒子会无视这个元素，但其他盒子内的文本依然会为这个元素让出位置，环绕在周围。而对于使用`position:absolute`脱离文档流的元素，其他盒子与其他盒子内的文本都会无视它。
-
-## 常规流(文档流)是个怎样的排列关系
-
-将窗体自上而下分成一行一行,并在每行中按从左至右的挨次排放元素。
+- `none`, `block`, `inline`, `inline-block`, `table`, `table-row`, `table-cell`, `list-item`.
 
 ## inline-block 的使用场景
 
 1. 要设置某些子元素在一行或者多行内显示，尤其是排列方向一致的情况下，应尽量用`inline-block`。
 2. 希望若干个元素平行排列，且在父元素中居中排列，此时可以用`inline-block`，且给父元素设`text-align: center`。
+3. inline-block 的层叠上下文优先级比 block 块级盒子优先级高
 
 ## 去除 inline-block 元素间间距的方法
 
 - 移除空格
 - 使用 margin 负值
-- 使用 font-size:0
 - letter-spacing
 - word-spacing
-
-## 什么是外边距合并
-
-外边距合并指的是，当两个垂直外边距相遇时，它们将形成一个外边距。
-
-合并后的外边距的高度等于两个发生合并的外边距的高度中的较大者。
-
-## DIV+CSS 布局的好处
-
-1. 代码精简，且结构与样式分离，易于维护
-2. 代码量减少了，减少了大量的带宽，页面加载的也更快，提升了用户的体验
-3. 对 SEO 搜索引擎更加友好，且 H5 又新增了许多语义化标签更是如此
-4. 允许更多炫酷的页面效果，丰富了页面
-5. 符合 W3C 标准，保证网站不会因为网络应用的升级而被淘汰
-
-缺点: 不同浏览器对 web 标准默认值不同，所以更容易出现对浏览器的兼容性问题。
-
-## 如何解决 a 标点击后 hover 事件失效的问题?
-
-改变 a 标签 css 属性的排列顺序
-
-`a:link`：未访问时的样式，一般省略成 a `a:visited`：已经访问后的样式 `a:hover`：鼠标移上去时的样式 `a:active`：鼠标按下时的样式
-
-比如下面错误的代码顺序：
-
-```
-a:hover{
-  color: green;
-  text-decoration: none;
-}
-a:visited{ /* visited在hover后面，这样的话hover事件就失效了 */
-  color: red;
-  text-decoration: none;
-}
-```
-
-正确的做法是将两个事件的位置调整一下。
-
-## rem 和 em 的区别
-
-**em:**
-
-定义字体大小时以父级的字体大小为基准；定义长度单位时以当前字体大小为基准。例父级`font-size: 14px`，则子级`font-size: 1em;`为`font-size: 14px;`；若定义长度时，子级的字体大小如果为`14px`，则子级`width: 2em;`为`width: 24px`。
-
-**rem:**
-
-以根元素的字体大小为基准。例如`html`的`font-size: 14px`，则子级`1rem = 14px`。
 
 ## animation 介绍一下
 
@@ -542,7 +264,7 @@ animation: name duration timing-function delay iteration-count direction;
 | _[animation-iteration-count](https://www.w3school.com.cn/cssref/pr_animation-iteration-count.asp)_ | 规定动画应该播放的次数。(n \| infinite) n 次/无限 |
 | _[animation-direction](https://www.w3school.com.cn/cssref/pr_animation-direction.asp)_ | 规定是否应该轮流反向播放动画。(normal \| alternate) 正常/反向 |
 
-## animation 有一个 steps()功能符知道吗？
+## animation steps()功能符？
 
 一句话介绍：`steps()`功能符可以让动画不连续。
 
@@ -561,16 +283,9 @@ steps(number, position)
   - `start`：表示直接开始。
   - `end`：表示戛然而止。是默认值。
 
-具体可以看这里：[www.zhangxinxu.com/wordpress/2…](https://www.zhangxinxu.com/wordpress/2018/06/css3-animation-steps-step-start-end/)
-
-## 什么是 GPU 加速，如何使用 GPU 加速，GPU 加速的缺点
-
-- **优点**：使用 transform、opacity、filters 等属性时，会直接在 GPU 中完成处理，这些属性的变化不会引起回流重绘
-- **缺点**：GPU 渲染字体会导致字体模糊，过多的 GPU 处理会导致内存问题
+具体可以看这里：[www.zhangxinxu.com/wordpress/2…](
 
 ## 介绍一下 flex 布局
-
-其实我本来还写了一节水平/垂直居中相关的，不过感觉内容过于基础还占长篇幅，所以删去了，作为一篇总结性的文章，这一小节也不应该从“flex 是什么”开始讲，主轴、侧轴这些概念相信用过 flex 布局都知道，所以我们直接 flex 的几个属性讲起：
 
 > 容器属性（使用在 flex 布局容器上的属性）
 
@@ -686,7 +401,7 @@ flex 有两个快捷值：`auto`和`none`，分别代表`1 1 auto`（有剩余�
 }
 ```
 
-## 请阐述`Float`定位的工作原理。需要重点看下
+## 请阐述`Float`定位的工作原理。
 
 浮动（float）是 CSS 定位属性。浮动元素从网页的正常流动中移出，但是保持了部分的流动性，会影响其他元素的定位（比如文字会围绕着浮动元素）。这一点与绝对定位不同，绝对定位的元素完全从文档流中脱离。
 
@@ -706,6 +421,91 @@ CSS 的`clear`属性通过使用`left`、`right`、`both`，让该元素向下�
 
 值得一提的是，把父元素属性设置为`overflow: auto`或`overflow: hidden`，会使其内部的子元素形成块格式化上下文（Block Formatting Context），并且父元素会扩张自己，使其能够包围它的子元素。
 
+## 你了解 CSS Flex 和 Grid 吗
+
+Flex 主要用于一维布局，而 Grid 则用于二维布局。
+
+- Flex： flex 容器中存在两条轴， 横轴和纵轴， 容器中的每个单元称为 flex item。
+
+  在容器上可以设置 6 个属性： _flex-direction_ flex-wrap _flex-flow_ justify-content _align-items_ align-content
+
+  注意：当设置 flex 布局之后，子元素的 float、clear、vertical-align 的属性将会失效。
+
+  有六种属性可运用在 item 项目上: 1. order 2. flex-basis 3. flex-grow 4. flex-shrink 5. flex 6. align-self
+
+- Grid：CSS 网格布局用于将页面分割成数个主要区域，或者用来定义组件内部元素间大小、位置和图层之间的关系。
+
+  像表格一样，网格布局让我们能够按行或列来对齐元素。 但是，使用 CSS 网格可能还是比 CSS 表格更容易布局。 例如，网格容器的子元素可以自己定位，以便它们像 CSS 定位的元素一样，真正的有重叠和层次。
+
+## 脱离文档流是会呈现什么样的效果呢？
+
+脱离文档流，也就是**将元素从普通的布局排版中拿走**，其他盒子在定位的时候，会当做脱离文档流的元素不存在而进行定位。
+
+而在`CSS`中，使用`float`和设置`position:absolute`都会使得元素脱离文档流。只不过它两的区别是：
+
+使用`float`脱离文档流时，其他盒子会无视这个元素，但其他盒子内的文本依然会为这个元素让出位置，环绕在周围。
+
+而对于使用`position:absolute`脱离文档流的元素，其他盒子与其他盒子内的文本都会无视它。
+
+## 常规流(文档流)是个怎样的排列关系
+
+将窗体自上而下分成一行一行,并在每行中按从左至右的挨次排放元素。
+
+## DIV+CSS 布局的好处
+
+1. 代码精简，且结构与样式分离，易于维护
+2. 代码量减少了，减少了大量的带宽，页面加载的也更快，提升了用户的体验
+3. 对 SEO 搜索引擎更加友好，且 H5 又新增了许多语义化标签更是如此
+4. 允许更多炫酷的页面效果，丰富了页面
+5. 符合 W3C 标准，保证网站不会因为网络应用的升级而被淘汰
+
+## 如何解决 a 标点击后 hover 事件失效的问题?
+
+改变 a 标签 css 属性的排列顺序
+
+`a:link`：未访问时的样式，一般省略
+
+`a:visited`：已经访问后的样式
+
+`a:hover`：鼠标移上去时的样式
+
+`a:active`：鼠标按下时的样式
+
+```css
+a:visited {
+  /* visited在hover后面，这样的话hover事件就失效了 */
+  color: red;
+  text-decoration: none;
+}
+
+a:hover {
+  color: green;
+  text-decoration: none;
+}
+```
+
+## rem 和 em 的区别
+
+**em:**
+
+定义字体大小时以父级的字体大小为基准；定义长度单位时以当前字体大小为基准。例父级`font-size: 14px`，则子级`font-size: 1em;`为`font-size: 14px;`；若定义长度时，子级的字体大小如果为`14px`，则子级`width: 2em;`为`width: 24px`。
+
+**rem:**
+
+以根元素的字体大小为基准。例如`html`的`font-size: 14px`，则子级`1rem = 14px`。
+
+https://www.zhangxinxu.com/wordpress/2018/06/css3-animation-steps-step-start-end/)
+
+## 什么是 GPU 加速，如何使用 GPU 加速，GPU 加速的缺点
+
+- **优点**：使用 transform、opacity、filters 等属性时，会直接在 GPU 中完成处理，这些属性的变化不会引起回流重绘
+- **缺点**：GPU 渲染字体会导致字体模糊，过多的 GPU 处理会导致内存问题
+
+## 过渡与动画的区别是什么
+
+- transition 可以在一定的时间内实现元素的状态过渡为最终状态，用于模拟以一种过渡动画效果，但是功能有限，只能用于制作简单的动画效果而动画属性。
+- animation 可以制作类似 Flash 动画，通过关键帧控制动画的每一步，控制更为精确，从而可以制作更为复杂的动画。
+
 ## CSS 盒模型
 
 CSS 盒模型是前端的基石，这个问题由浅入深，由易到难，可以依次问出下面几个问题
@@ -716,7 +516,13 @@ CSS 盒模型是前端的基石，这个问题由浅入深，由易到难，可�
 
 1、基本概念：所有 HTML 元素可以看作盒子，在 CSS 中，"box model"这一术语是用来设计和布局时使用。 CSS 盒模型本质上是一个盒子，封装周围的 HTML 元素，它包括：边距，边框，填充，和实际内容。盒模型允许我们在其它元素和周围元素边框之间的空间放置元素。下面的图片说明了盒子模型(Box Model)：
 
-2、标准模型与 IE 模型的区别标准模型与 IE 模型的区别在于宽高的计算方式不同。标准模型计算元素的宽高只算 content 的宽高，IE 模型是 content + padding + border 的总尺寸。假如 content 宽高是 100*100px，padding 为 10px，border 为 10px，margin 为 10px，那么在标准模型下，这个元素的宽为 100px，高为 100px。* *IE 模型下，宽为 100px + 2*10px(左右 padding) + 2*10px(左右 border) = 140px;* *高为 100px + 2*10px(上下 padding) + 2\*10px(上下 border) = 140px;
+2、标准模型与 IE 模型的区别标准模型与 IE 模型的区别在于宽高的计算方式不同。标准模型计算元素的宽高只算 content 的宽高，
+
+IE 模型是 content + padding + border 的总尺寸。
+
+假如 content 宽高是 100，100px，padding 为 10px，border 为 10px，margin 为 10px，那么在标准模型下，这个元素的宽为 100px，高为 100px。
+
+IE 模型下，宽高为 140px。
 
 3、如何设置这两种模型
 
@@ -730,7 +536,7 @@ box-sizing: border-box;
 
 box-sizing 的默认值是 content-box，即默认标准模型
 
-## 重置（resetting）CSS 和 标准化（normalizing）CSS 的区别是什么？你会选择哪种方式，为什么？
+## 重置（resetting）CSS 和 标准化（normalizing）CSS 的区别是什么？
 
 - **重置（Resetting）**： 重置意味着除去所有的浏览器默认样式。对于页面所有的元素，像`margin`、`padding`、`font-size`这些样式全部置成一样。你将必须重新定义各种元素的样式。
 - **标准化（Normalizing）**： 标准化没有去掉所有的默认样式，而是保留了有用的一部分，同时还纠正了一些常见错误。
@@ -740,7 +546,7 @@ box-sizing 的默认值是 content-box，即默认标准模型
 ## 有哪些清除浮动的技术，都适用哪些情况？
 
 - 空`div`方法：``。
-- Clearfix 方法：上文使用`.clearfix`类已经提到。
+- 伪元素 Clearfix 方法
 - `overflow: auto`或`overflow: hidden`方法：上文已经提到。
 
 在大型项目中，我会使用 Clearfix 方法，在需要的地方使用`.clearfix`。设置`overflow: hidden`的方法可能使其子元素显示不完整，当子元素的高度大于父元素时。
@@ -764,13 +570,16 @@ box-sizing 的默认值是 content-box，即默认标准模型
 - 使用已经处理好此类问题的库，比如 Bootstrap。
 - 使用 `autoprefixer` 自动生成 CSS 属性前缀。
 - 使用 Reset CSS 或 Normalize.css。
-
-## 如何为功能受限的浏览器提供页面？ 使用什么样的技术和流程？
-
 - 优雅的降级：为现代浏览器构建应用，同时确保它在旧版浏览器中正常运行。
 - 渐进式增强：构建基于用户体验的应用，但在浏览器支持时添加新增功能。
-- 利用 [caniuse.com](https://link.zhihu.com/?target=https%3A//caniuse.com/) 检查特性支持。
-- 使用 `autoprefixer` 自动生成 CSS 属性前缀。
+
+## css hack 是什么
+
+由于不同的浏览器，比如 Internet Explorer 6,Internet Explorer 7,Mozilla Firefox 等，对 CSS 的解析认识不一样，因此会导致生成的页面效果不一样，得不到我们所需要的页面效果。
+
+这个时候我们就需要针对不同的浏览器去写不同的 CSS，让它能够同时兼容不同的浏览器，能在不同的浏览器中也能得到我们想要的页面效果。
+
+这个针对不同的浏览器写不同的 CSS code 的过程，就叫 CSS hack
 
 ## 有什么不同的方式可以隐藏内容（使其仅适用于屏幕阅读器）？
 
@@ -782,8 +591,6 @@ box-sizing 的默认值是 content-box，即默认标准模型
 
 - `position: absolute; left: -99999px`： 将它置于屏幕之外。
 
-- `text-indent: -9999px`：这只适用于`block`元素中的文本。
-
 ## 除了`screen`，你还能说出一个 @media 属性的例子吗？
 
 - all 适用于所有设备。
@@ -793,7 +600,8 @@ box-sizing 的默认值是 content-box，即默认标准模型
 
 ## 编写高效的 CSS 应该注意什么？
 
-首先，浏览器从最右边的选择器，即关键选择器（key selector），向左依次匹配。根据关键选择器，浏览器从 DOM 中筛选出元素，然后向上遍历被选元素的父元素，判断是否匹配。选择器匹配语句链越短，浏览器的匹配速度越快。避免使用标签和通用选择器作为关键选择器，因为它们会匹配大量的元素，浏览器必须要进行大量的工作，去判断这些元素的父元素们是否匹配。
+- 匹配语句要短
+- 避免使用标签和通用选择器，因为会匹配大量元素，再判断
 
 ## 使用 CSS 预处理的优缺点分别是什么？
 
@@ -809,58 +617,11 @@ box-sizing 的默认值是 content-box，即默认标准模型
 
 - 需要预处理工具。
 - 重新编译的时间可能会很慢。
-
-## 对于你使用过的 CSS 预处理，说说喜欢和不喜欢的地方？
-
-喜欢：
-
-- 绝大部分优点上题以及提过。
-- Less 用 JavaScript 实现，与 NodeJS 高度结合。
-
-**Dislikes:**
-
-- 我通过`node-sass`使用 Sass，它用 C ++ 编写的 LibSass 绑定。在 Node 版本切换时，我必须经常重新编译。
 - Less 中，变量名称以`@`作为前缀，容易与 CSS 关键字混淆，如`@media`、`@import`和`@font-face`。
 
 ## 如何实现一个使用非标准字体的网页设计？
 
 使用`@font-face`并为不同的`font-weight`定义`font-family`。
-
-## 解释浏览器如何确定哪些元素与 CSS 选择器匹配。
-
-这部分与上面关于编写高效的 CSS 有关。浏览器从最右边的选择器（关键选择器）根据关键选择器，浏览器从 DOM 中筛选出元素，然后向上遍历被选元素的父元素，判断是否匹配。选择器匹配语句链越短，浏览器的匹配速度越快。
-
-例如，对于形如`p span`的选择器，浏览器首先找到所有`元素，并遍历它的父元素直到根元素以找到`元素。对于特定的`，只要找到一个`，就知道'`已经匹配并停止继续匹配。
-
-## display 的属性值都有哪些？
-
-- `none`, `block`, `inline`, `inline-block`, `table`, `table-row`, `table-cell`, `list-item`.
-
-## position 的属性值都有哪些？
-
-经过定位的元素，其`position`属性值必然是`relative`、`absolute`、`fixed`或`sticky`。
-
-- `static`：默认定位属性值。该关键字指定元素使用正常的布局行为，即元素在文档常规流中当前的布局位置。此时 top, right, bottom, left 和 z-index 属性无效。
-- `relative`：该关键字下，元素先放置在未添加定位时的位置，再在不改变页面布局的前提下调整元素位置（因此会在此元素未添加定位时所在位置留下空白）。
-- `absolute`：不为元素预留空间，通过指定元素相对于最近的非 static 定位祖先元素的偏移，来确定元素位置。绝对定位的元素可以设置外边距（margins），且不会与其他边距合并。
-- `fixed`：不为元素预留空间，而是通过指定元素相对于屏幕视口（viewport）的位置来指定元素位置。元素的位置在屏幕滚动时不会改变。打印时，元素会出现在的每页的固定位置。fixed 属性会创建新的层叠上下文。当元素祖先的 transform 属性非 none 时，容器由视口改为该祖先。
-- `sticky`：盒位置根据正常流计算(这称为正常流动中的位置)，然后相对于该元素在流中的 flow root（BFC）和 containing block（最近的块级祖先元素）定位。在所有情况下（即便被定位元素为 `table` 时），该元素定位均不对后续元素造成影响。当元素 B 被粘性定位时，后续元素的位置仍按照 B 未定位时的位置来确定。`position: sticky` 对 `table` 元素的效果与 `position: relative` 相同。
-
-## 你了解 CSS Flex 和 Grid 吗？
-
-Flex 主要用于一维布局，而 Grid 则用于二维布局。
-
-- Flex： flex 容器中存在两条轴， 横轴和纵轴， 容器中的每个单元称为 flex item。
-
-  在容器上可以设置 6 个属性： _flex-direction_ flex-wrap _flex-flow_ justify-content _align-items_ align-content
-
-  注意：当设置 flex 布局之后，子元素的 float、clear、vertical-align 的属性将会失效。
-
-  有六种属性可运用在 item 项目上: 1. order 2. flex-basis 3. flex-grow 4. flex-shrink 5. flex 6. align-self
-
-- Grid：CSS 网格布局用于将页面分割成数个主要区域，或者用来定义组件内部元素间大小、位置和图层之间的关系。
-
-  像表格一样，网格布局让我们能够按行或列来对齐元素。 但是，使用 CSS 网格可能还是比 CSS 表格更容易布局。 例如，网格容器的子元素可以自己定位，以便它们像 CSS 定位的元素一样，真正的有重叠和层次。
 
 ## 响应式设计与自适应设计有何不同？
 
@@ -870,19 +631,13 @@ Flex 主要用于一维布局，而 Grid 则用于二维布局。
 
 自适应设计更像是渐进式增强的现代解释。与响应式设计单一地去适配不同，自适应设计通过检测设备和其他特征，从早已定义好的一系列视窗大小和其他特性中，选出最恰当的功能和布局。与使用一个球去穿过各种的篮筐不同，自适应设计允许使用多个球，然后根据不同的篮筐大小，去选择最合适的一个。
 
-## 你有没有使用过视网膜分辨率的图形？当中使用什么技术？
+## 视网膜分辨率的图形当中使用什么技术？
 
 我倾向于使用更高分辨率的图形（显示尺寸的两倍）来处理视网膜显示。更好的方法是使用媒体查询，像`@media only screen and (min-device-pixel-ratio: 2) { ... }`，然后改变`background-image`。
 
 对于图标类的图形，我会尽可能使用 svg 和图标字体，因为它们在任何分辨率下，都能被渲染得十分清晰。
 
 还有一种方法是，在检查了`window.devicePixelRatio`的值后，利用 JavaScript 将 src 属性修改，用更高分辨率的版本进行替换。
-
-## 行内元素、块级元素区别
-
-行内元素：和其他元素都在一行上，高度、行高及外边距和内边距都不可改变，文字图片的宽度不可改变，只能容纳文本或者其他行内元素；其中 img 是行元素
-
-块级元素：总是在新行上开始，高度、行高及外边距和内边距都可控制，可以容纳内敛元素和其他元素；行内元素转换为块级元素方式：display：block；
 
 ## CSS 中 link 和@import 的区别
 
@@ -944,21 +699,6 @@ Flex 主要用于一维布局，而 Grid 则用于二维布局。
 </html>
 ```
 
-## 利用伪元素画三角
-
-```css
-.info-tab {
-  position: relative;
-}
-.info-tab::after {
-  position: absolute;
-  top: 0;
-  border: 4px solid transparent;
-  border-top-color: #2c8ac2;
-  content: '';
-}
-```
-
 ## 已知父级盒子的宽高，子级 img 宽高未知，想让 img 铺满父级盒子且图片不能变形
 
 需要用到`css`的`object-fit`属性
@@ -975,138 +715,61 @@ img {
 }
 ```
 
-[MDN](https://link.zhihu.com/?target=https%3A//developer.mozilla.org/zh-CN/docs/Web/CSS/object-fit)
-
-## css hack 是什么
-
-由于不同的浏览器，比如 Internet Explorer 6,Internet Explorer 7,Mozilla Firefox 等，对 CSS 的解析认识不一样，因此会导致生成的页面效果不一样，得不到我们所需要的页面效果。
-
-这个时候我们就需要针对不同的浏览器去写不同的 CSS，让它能够同时兼容不同的浏览器，能在不同的浏览器中也能得到我们想要的页面效果。
-
-这个针对不同的浏览器写不同的 CSS code 的过程，就叫 CSS hack,也叫写 CSS hack。
-
-## 过渡与动画的区别是什么
-
-- transition 可以在一定的时间内实现元素的状态过渡为最终状态，用于模拟以一种过渡动画效果，但是功能有限，只能用于制作简单的动画效果而动画属性。
-- animation 可以制作类似 Flash 动画，通过关键帧控制动画的每一步，控制更为精确，从而可以制作更为复杂的动画。
-
 ## 分析比较 opacity: 0、visibility: hidden、display: none 优劣和适用场景
 
-- display: none;
+- **display: none;**
 
-1. **DOM 结构**：浏览器不会渲染 `display` 属性为 `none` 的元素，不占据空间；
-2. **事件监听**：无法进行 DOM 事件监听；
-3. **性能**：动态改变此属性时会引起重排，性能较差；
-4. **继承**：不会被子元素继承，毕竟子类也不会被渲染；
-5. **transition**：`transition` 不支持 `display`。
+1. DOM 结构：浏览器不会渲染 `display` 属性为 `none` 的元素，不占据空间；
+2. 事件监听：无法进行 DOM 事件监听；
+3. 性能：动态改变此属性时会引起重排，性能较差；
+4. 继承：不会被子元素继承，毕竟子类也不会被渲染；
+5. transition：`transition` 不支持 `display`。
 
-- visibility: hidden;
+- **visibility: hidden;**
 
-1. **DOM 结构**：元素被隐藏，但是会被渲染不会消失，占据空间；
-2. **事件监听**：无法进行 DOM 事件监听；
-3. **性 能**：动态改变此属性时会引起重绘，性能较高；
-4. **继 承**：会被子元素继承，子元素可以通过设置 `visibility: visible;` 来取消隐藏；
-5. **transition**：`transition` 不支持 `display`。
+1. DOM 结构：元素被隐藏，但是会被渲染不会消失，占据空间；
+2. 事件监听：无法进行 DOM 事件监听；
+3. 性 能：动态改变此属性时会引起重绘，性能较高；
+4. 继 承：会被子元素继承，子元素可以通过设置 `visibility: visible;` 来取消隐藏；
+5. transition：`transition` 不支持 `display`。
 
-- opacity: 0;
+- **opacity: 0;**
 
-1. **DOM 结构**：透明度为 100%，元素隐藏，占据空间；
-2. **事件监听**：可以进行 DOM 事件监听；
-3. **性 能**：提升为合成层，不会触发重绘，性能较高；
-4. **继 承**：会被子元素继承,且，子元素并不能通过 `opacity: 1` 来取消隐藏；
-5. **transition**：`transition` 不支持 `opacity`。
+1. DOM 结构：透明度为 100%，元素隐藏，占据空间；
+2. 事件监听：可以进行 DOM 事件监听；
+3. 性 能：提升为合成层，不会触发重绘，性能较高；
+4. 继 承：会被子元素继承,且，子元素并不能通过 `opacity: 1` 来取消隐藏；
+5. transition：`transition` 不支持 `opacity`。
 
 ## 介绍下重绘和回流（Repaint & Reflow），以及如何进行优化
 
-1. 浏览器渲染机制
+回流必定会发生重绘，重绘不一定会引发回流。
 
-- 浏览器采用流式布局模型（`Flow Based Layout`）
-- 浏览器会把`HTML`解析成`DOM`，把`CSS`解析成`CSSOM`，`DOM`和`CSSOM`合并就产生了渲染树（`Render Tree`）。
-- 有了`RenderTree`，我们就知道了所有节点的样式，然后计算他们在页面上的大小和位置，最后把节点绘制到页面上。
-- 由于浏览器使用流式布局，对`Render Tree`的计算通常只需要遍历一次就可以完成，**但`table`及其内部元素除外，他们可能需要多次计算，通常要花 3 倍于同等元素的时间，这也是为什么要避免使用`table`布局的原因之一**。
+1. 重绘
 
-2. 重绘
+   由于节点的几何属性发生改变或者由于样式发生改变而不会影响布局的，称为重绘，例如`outline`, `visibility`, `color`、`background-color`等
 
-由于节点的几何属性发生改变或者由于样式发生改变而不会影响布局的，称为重绘，例如`outline`, `visibility`, `color`、`background-color`等，重绘的代价是高昂的，因为浏览器必须验证 DOM 树上其他节点元素的可见性。
+2. 回流
 
-3. 回流
+   回流是布局或者几何属性的改变。其变化涉及到部分页面（或是整个页面）的布局更新。一个元素的回流可能会导致了其所有子元素以及 DOM 中紧随其后的元素的变化。
 
-回流是布局或者几何属性需要改变就称为回流。回流是影响浏览器性能的关键因素，因为其变化涉及到部分页面（或是整个页面）的布局更新。一个元素的回流可能会导致了其所有子元素以及 DOM 中紧随其后的节点、祖先节点元素的随后的回流。
+3. 减少重绘与回流
 
-```html
-<body>
-<div class="error">
-    <h4>我的组件</h4>
-    <p><strong>错误：</strong>错误的描述…</p>
-    <h5>错误纠正</h5>
-    <ol>
-        <li>第一步</li>
-        <li>第二步</li>
-    </ol>
-</div>
-</body>
-```
+- CSS
 
-在上面的 HTML 片段中，对该段落(`<p>`标签)回流将会引发强烈的回流，因为它是一个子节点。这也导致了祖先的回流（`div.error`和`body` – 视浏览器而定）。此外，`<h5>`和`<ol>`也会有简单的回流，因为其在 DOM 中在回流元素之后。**大部分的回流将导致页面的重新渲染。**
+  - **使用 `transform` 替代 `top`**
+  - **使用 `visibility` 替换 `display: none`** ，因为前者只会引起重绘，后者会引发回流（改变了布局
 
-**回流必定会发生重绘，重绘不一定会引发回流。**
+  - **避免使用`table`布局**，可能很小的一个小改动会造成整个 `table` 的重新布局。
 
-4. 浏览器优化
+  - **尽可能在`DOM`树的最末端改变`class`**，回流是不可避免的，但可以减少其影响。尽可能在 DOM 树的最末端改变 class，可以限制了回流的范围，使其影响尽可能少的节点。
 
-现代浏览器大多都是通过队列机制来批量更新布局，浏览器会把修改操作放在队列中，至少一个浏览器刷新（即 16.6ms）才会清空队列，但当你**获取布局信息的时候，队列中可能有会影响这些属性或方法返回值的操作，即使没有，浏览器也会强制清空队列，触发回流与重绘来确保返回正确的值**。
+  - **将动画效果应用到`position`属性为`absolute`或`fixed`的元素上**，避免影响其他元素的布局，这样只是一个重绘，而不是回流。
 
-主要包括以下属性或方法：
+  - **将频繁重绘或者回流的节点设置为图层**，图层能够阻止该节点的渲染行为影响别的节点，例如`will-change`、`video`、`iframe`等标签，浏览器会自动将该节点变为图层。
 
-- `offsetTop`、`offsetLeft`、`offsetWidth`、`offsetHeight`
-- `scrollTop`、`scrollLeft`、`scrollWidth`、`scrollHeight`
-- `clientTop`、`clientLeft`、`clientWidth`、`clientHeight`
-- `width`、`height`
-- `getComputedStyle()`
-- `getBoundingClientRect()`
+  - **CSS3 硬件加速（GPU 加速）**，使用 css3 硬件加速，可以让`transform`、`opacity`、`filters`这些动画不会引起回流 。
 
-所以，我们应该避免频繁的使用上述的属性，他们都会强制渲染刷新队列。
-
-5. 减少重绘与回流
-
-1. CSS
-
-   - **使用 `transform` 替代 `top`**
-
-   - **使用 `visibility` 替换 `display: none`** ，因为前者只会引起重绘，后者会引发回流（改变了布局
-
-   - **避免使用`table`布局**，可能很小的一个小改动会造成整个 `table` 的重新布局。
-
-   - **尽可能在`DOM`树的最末端改变`class`**，回流是不可避免的，但可以减少其影响。尽可能在 DOM 树的最末端改变 class，可以限制了回流的范围，使其影响尽可能少的节点。
-
-   - **避免设置多层内联样式**，CSS 选择符**从右往左**匹配查找，避免节点层级过多。
-
-     ```html
-     <div>
-       <a> <span></span> </a>
-     </div>
-     <style>
-       span {
-         color: red;
-       }
-       div > a > span {
-         color: red;
-       }
-     </style>
-     ```
-
-     对于第一种设置样式的方式来说，浏览器只需要找到页面中所有的 `span` 标签然后设置颜色，但是对于第二种设置样式的方式来说，浏览器首先需要找到所有的 `span` 标签，然后找到 `span` 标签上的 `a` 标签，最后再去找到 `div` 标签，然后给符合这种条件的 `span` 标签设置颜色，这样的递归过程就很复杂。所以我们应该尽可能的避免写**过于具体**的 CSS 选择器，然后对于 HTML 来说也尽量少的添加无意义标签，保证**层级扁平**。
-
-   - **将动画效果应用到`position`属性为`absolute`或`fixed`的元素上**，避免影响其他元素的布局，这样只是一个重绘，而不是回流，同时，控制动画速度可以选择 `requestAnimationFrame`
-
-   - **避免使用`CSS`表达式**，可能会引发回流。
-
-   - **将频繁重绘或者回流的节点设置为图层**，图层能够阻止该节点的渲染行为影响别的节点，例如`will-change`、`video`、`iframe`等标签，浏览器会自动将该节点变为图层。
-
-   - **CSS3 硬件加速（GPU 加速）**，使用 css3 硬件加速，可以让`transform`、`opacity`、`filters`这些动画不会引起回流重绘 。但是对于动画的其它属性，比如`background-color`这些，还是会引起回流重绘的，不过它还是可以提升这些动画的性能。
-
-1. JavaScript
-
-   - **避免频繁操作样式**，最好一次性重写`style`属性，或者将样式列表定义为`class`并一次性更改`class`属性。
-   - **避免频繁操作`DOM`**，创建一个`documentFragment`，在它上面应用所有`DOM操作`，最后再把它添加到文档中。
-   - **避免频繁读取会引发回流/重绘的属性**，如果确实需要多次使用，就用一个变量缓存起来。
-   - **对具有复杂动画的元素使用绝对定位**，使它脱离文档流，否则会引起父元素及后续元素频繁回流。
+- JavaScript
+  - **避免频繁操作样式**，最好一次性重写`style`属性，或者将样式列表定义为`class`并一次性更改`class`属性。
+  - **对具有复杂动画的元素使用绝对定位**，使它脱离文档流，否则会引起父元素及后续元素频繁回流。

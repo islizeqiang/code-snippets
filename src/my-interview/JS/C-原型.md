@@ -1,5 +1,22 @@
 [TOC]
 
+## 原型、构造函数、实例、原型链
+
+![img](https://pic3.zhimg.com/80/v2-a6b2ab6b93f5b72cee707e2d3ea327e2_720w.jpg)
+
+[![project](http://47.98.159.95/my_blog/017/2.jpg)](http://47.98.159.95/my_blog/017/2.jpg)
+
+特点：
+
+- 构造函数.prototype.constructor === 构造函数
+- 构造函数.prototype === 实例对象.`__proto__`
+
+小提示：
+
+- Object.getPrototypeOf(对象)可以取到此对象的原型
+
+- 使用 in 检查对象中是否含有某个属性时，如果对象中没有但是原型链中有，也会返回 true
+
 ## 类的声明和实例化
 
 声明类有两种方法：
@@ -22,8 +39,6 @@ class Animal2 {
 var a1 = new Animal('shape');
 var a2 = new Animal2('cat');
 ```
-
-
 
 ## ES5 如何实现继承
 
@@ -191,7 +206,6 @@ const child = new Child();
 const parent = new Parent();
 child.getName(); // ['zhangsan']
 parent.getName(); // 报错, 找不到getName()
-复制代码;
 ```
 
 到这里我们就完成了 ES5 环境下的继承的实现，这种继承方式称为`寄生组合式继承`，是目前最成熟的继承方式，babel 对 ES6 继承的转化也是使用了寄生组合式继承

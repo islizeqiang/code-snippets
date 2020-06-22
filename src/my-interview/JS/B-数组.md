@@ -77,6 +77,58 @@ while (arr.some(Array.isArray)) {
 console.log(arr); // [1, 1, 2, 1, 2, 3, 4, 4, 4]
 ```
 
+## 数组去重
+
+ES5
+
+```js
+function unique(arry) {
+  const temp = [];
+  arry.forEach(function (item) {
+    if (temp.indexOf(item) == -1) {
+      temp.push(item);
+    }
+  });
+
+  return temp;
+}
+```
+
+ES6
+
+```js
+function unique(arry) {
+  return Array.from(new Set(arry));
+}
+```
+
+## 如何判断数组与对象
+
+```js
+Array.isArray([]); // true
+Array.isArray({}); // false
+
+typeof []; // "object"
+typeof {}; // "object"
+
+Object.prototype == [].__proto__; // false
+Object.prototype == {}.__proto__; // true
+Array.prototype == [].__proto__; // true
+Array.prototype == {}.__proto__; // false
+```
+
+## 字符串和数组的关系
+
+在很大程度上，可以将字符串看成字符串数组，
+
+都有 length 属性
+
+都有 concat() / indexOf() / includes() / slice() 方法
+
+不过值得注意的是， string 上没有方法可以原地修改它自身的内容，都是返回新的 string
+
+string 还有个 repeat() 方法，创建指定数量的字符串副本
+
 ## forEach 中 return 有效果吗？如何中断 forEach 循环？
 
 在 forEach 中用 return 不会返回，函数会继续执行。
@@ -88,9 +140,9 @@ console.log(arr); // [1, 1, 2, 1, 2, 3, 4, 4, 4]
 
 ## arguments 是什么？如何转化成数组？
 
-arguments 是一个对象，是Iterator对象
+arguments 是一个对象，是 Iterator 对象
 
-类数组对象，就是含 length的对象
+类数组对象，就是含 length 的对象
 
 - ES6 展开运算符
 
@@ -100,11 +152,11 @@ arguments 是一个对象，是Iterator对象
   [...arguments];
   ```
 
-  一切以数组为输入，以数组为输出的API都可以做数组转换。但是一切以类数组作为this的方法都会返回稀疏数组，而将类数组作为arguments的方法都会返回正常的数据，所以靠谱方式有
+  一切以数组为输入，以数组为输出的 API 都可以做数组转换。但是一切以类数组作为 this 的方法都会返回稀疏数组，而将类数组作为 arguments 的方法都会返回正常的数据，所以靠谱方式有
 
 - Array.from()
 
-  可以将类数组对象（可特殊仅包含一个length）和可迭代对象转成数组
+  可以将类数组对象（可特殊仅包含一个 length）和可迭代对象转成数组
 
   ```js
   Array.from(arguments);
@@ -118,7 +170,7 @@ arguments 是一个对象，是Iterator对象
   Array.prototype.concat.apply([], arguments);
   ```
 
-  生成指定长度数组的几种方法，一切以数组为输入，以数组为输出的API都可以
+  生成指定长度数组的几种方法，一切以数组为输入，以数组为输出的 API 都可以
 
 ```js
 [...new Array(12)]
@@ -134,26 +186,24 @@ Array.prototype.map.call(arrayLike, x => x)
 Array.prototype.filter.call(arrayLike, x => 1)
 ```
 
-
-
-## 都有哪些是iterator对象
+## 都有哪些是 iterator 对象
 
 这些对象都有默认的迭代器，即具有 Symbol.iterator 属性，
 
-判断对象是否是iterator对象
+判断对象是否是 iterator 对象
 
 > ```js
-> typeof obj[Symbol.iterator] === 'function'
+> typeof obj[Symbol.iterator] === 'function';
 > ```
 
 - Array
-- Map (WeakMap不是iterator对象)
-- Set (WeakSet不是iterator对象)
-- String  
+- Map (WeakMap 不是 iterator 对象)
+- Set (WeakSet 不是 iterator 对象)
+- String
 - 函数的 arguments 对象
 - `document.getElementsByTagName("div")` 返回的是可迭代对象但不是一个数组
   - `Array.isArray(document.getElementsByTagName('div'))` 返回 false
-- 所有通过Generator（生成器）创建的迭代器都是可迭代对象
+- 所有通过 Generator（生成器）创建的迭代器都是可迭代对象
 
 ## for...in 和 for...of 的区别
 
@@ -197,13 +247,9 @@ Iterator 的遍历过程是这样的。
 
 ## Generator 函数
 
-执行Generator函数会返回一个遍历器对象，也就说，Generator函数除了状态机，还是一个遍历器对象生成函数，返回的遍历器对象（也可叫内部指针）。
-
-
+执行 Generator 函数会返回一个遍历器对象，也就说，Generator 函数除了状态机，还是一个遍历器对象生成函数，返回的遍历器对象（也可叫内部指针）。
 
 换言之，`next`方法的作用是分阶段执行`Generator`函数。每次调用`next`方法，会返回一个对象，表示当前阶段的信息（`value`属性和`done`属性）。`value`属性是`yield`语句后面表达式的值，表示当前阶段的值；`done`属性是一个布尔值，表示 Generator 函数是否执行完毕，即是否还有下一个阶段。
-
-
 
 由于 Generator 函数就是遍历器生成函数
 
@@ -246,10 +292,10 @@ console.log([...a]); // [1, 2, 3]
 // 或者采用下面的简洁写法
 
 let obj = {
-  * [Symbol.iterator]() {
+  *[Symbol.iterator]() {
     yield 'hello';
     yield 'world';
-  }
+  },
 };
 
 for (let x of obj) {
@@ -260,16 +306,15 @@ for (let x of obj) {
 ```
 
 ```js
-function* gen(x){
+function* gen(x) {
   var y = yield x + 2;
   return y;
 }
 
 var g = gen(1);
-g.next() // { value: 3, done: false }
+g.next(); // { value: 3, done: false }
 // 可作为参数传递给y进行返回
-g.next(2) // { value: 2, done: true }
-
+g.next(2); // { value: 2, done: true }
 ```
 
 ## in 操作符

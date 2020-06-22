@@ -1,30 +1,30 @@
 [TOC]
 
-## JS异步编程方案
+## JS 异步编程方案
 
 #### 回调函数
 
-- 内部利用发布-订阅模式，一个EventEmitter需要实现`addListener`, `removeListener`, `once`, `removeAllListener`, `emit`
+- 内部利用发布-订阅模式，一个 EventEmitter 需要实现`addListener`, `removeListener`, `once`, `removeAllListener`, `emit`
 
 #### Promise
 
 ##### 1. 凭借什么消灭了回调地狱？
 
-​	什么是回调地狱？
+​ 什么是回调地狱？
 
 - 多层嵌套问题
 - 每种任务的处理结果存在两种可能性，成功或失败，那么需要在每种任务执行结束后分别处理这两种可能性
 
-​	怎么解决的？
+​ 怎么解决的？
 
 - 实现链式调用，解决多层嵌套问题
 - 实现错误冒泡后一站式处理，解决每次任务中判断错误、增加代码混乱度的问题
 
 ##### 2.为什么要引入微任务
 
-​	1. 采用异步回调代替同步回调解决了浪费CPU性能的问题。因为同步执行的话，会让整个脚本阻塞，当前任务等待，后面任务都无法执行，也导致CPU利用率低。
+​ 1. 采用异步回调代替同步回调解决了浪费 CPU 性能的问题。因为同步执行的话，会让整个脚本阻塞，当前任务等待，后面任务都无法执行，也导致 CPU 利用率低。
 
- 	2. 放在当前宏任务最后执行，解决回调执行的实时性问题。因为在任务队列特别长的时候，回调迟迟得不到执行，会造成应用卡顿。
+2. 放在当前宏任务最后执行，解决回调执行的实时性问题。因为在任务队列特别长的时候，回调迟迟得不到执行，会造成应用卡顿。
 
 #### Generator
 
@@ -32,26 +32,24 @@
 
 ```js
 function* gen1() {
-    yield 1;
-    yield 4;
+  yield 1;
+  yield 4;
 }
 function* gen2() {
-    yield 2;
-    yield 3;
+  yield 2;
+  yield 3;
 }
 
 function* gen12() {
-    yield 1;
-    yield* gen2();
-    yield 4;
+  yield 1;
+  yield* gen2();
+  yield 4;
 }
 ```
 
 执行机制：协程
 
 #### async await
-
-
 
 ## Promise.all(iterable)
 
@@ -63,27 +61,32 @@ Promise.race(iterable)方法返回一个 promise，一旦迭代器中的某个 p
 
 ## Promise.prototype.finally()
 
-`finally()` 方法返回一个[`Promise`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise)。在promise结束时，无论结果是fulfilled或者是rejected，都会执行指定的回调函数。这为在`Promise`是否成功完成后都需要执行的代码提供了一种方式。
+`finally()` 方法返回一个[`Promise`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise)。在 promise 结束时，无论结果是 fulfilled 或者是 rejected，都会执行指定的回调函数。这为在`Promise`是否成功完成后都需要执行的代码提供了一种方式。
 
 这避免了同样的语句需要在[`then()`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise/then)和[`catch()`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise/catch)中各写一次的情况。
 
 ```js
 let isLoading = true;
 
-fetch(myRequest).then(function(response) {
-    var contentType = response.headers.get("content-type");
-    if(contentType && contentType.includes("application/json")) {
+fetch(myRequest)
+  .then(function (response) {
+    var contentType = response.headers.get('content-type');
+    if (contentType && contentType.includes('application/json')) {
       return response.json();
     }
     throw new TypeError("Oops, we haven't got JSON!");
   })
-  .then(function(json) { /* process your JSON further */ })
-  .catch(function(error) { console.log(error); })
-  .finally(function() { isLoading = false; });
+  .then(function (json) {
+    /* process your JSON further */
+  })
+  .catch(function (error) {
+    console.log(error);
+  })
+  .finally(function () {
+    isLoading = false;
+  });
 ```
 
+## forEach 中用 await 会产生什么问题？怎么解决？
 
-
-## forEach中用await会产生什么问题？怎么解决？
-
-forEach不能保证执行顺序，callback会一起执行，不能保证异步执行顺序，但可以采用for...of解决，通过迭代器去遍历。
+forEach 不能保证执行顺序，callback 会一起执行，不能保证异步执行顺序，但可以采用 for...of 解决，通过迭代器去遍历。
