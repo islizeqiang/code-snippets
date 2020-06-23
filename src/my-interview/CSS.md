@@ -543,13 +543,17 @@ box-sizing 的默认值是 content-box，即默认标准模型
 
 当需要实现非常个性化的网页设计时，我会选择重置的方式，因为我要写很多自定义的样式以满足设计需求，这时候就不再需要标准化的默认样式了。
 
-## 有哪些清除浮动的技术，都适用哪些情况？
+## 有哪些清除浮动的技术
 
 - 空`div`方法：``。
-- 伪元素 Clearfix 方法
-- `overflow: auto`或`overflow: hidden`方法：上文已经提到。
 
-在大型项目中，我会使用 Clearfix 方法，在需要的地方使用`.clearfix`。设置`overflow: hidden`的方法可能使其子元素显示不完整，当子元素的高度大于父元素时。
+  ```html
+  <div style="clear:both"></div>
+  ```
+
+- 伪元素 clear: both;
+
+- `overflow: auto`或`overflow: hidden`方法：上文已经提到。
 
 ## 请解释什么是雪碧图（css sprites），以及如何实现？
 
