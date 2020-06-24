@@ -37,8 +37,6 @@
 - 没有自己的 this，无法调用 call，apply，bind。
 - 没有 prototype 属性 ，而 new 命令在执行时需要将构造函数的 prototype 赋值给新的对象的 **proto**
 
-
-
 ## call 和 apply 的区别
 
 共同点：
@@ -74,8 +72,6 @@ func.apply(obj, {
 });
 // func 接收到的参数实际上是 1,2,3
 ```
-
-
 
 ## call 和 apply 的用途
 
@@ -122,8 +118,6 @@ let arr2 = [4, 5, 6];
 Array.prototype.push.apply(arr1, arr2);
 console.log(arr1); // [1, 2, 3, 4, 5, 6]
 ```
-
-
 
 ## bind 的使用
 

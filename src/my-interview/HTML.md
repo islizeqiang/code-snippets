@@ -24,8 +24,6 @@ window > document > html > body
 
 声明文档的类型，不再采用 HTML4 的标准，采用自己的一套新的 HTML5 标准
 
-
-
 ## HTML5 语义化有什么作用
 
 什么是语义化？就是用合理、正确的标签来展示内容，比如 h1~h6 定义标题。
@@ -33,8 +31,6 @@ window > document > html > body
 - 易于用户阅读，样式丢失的时候能让页面呈现清晰的结构。
 - 有利于 SEO，搜索引擎根据标签来确定上下文和各个关键字的权重。
 - 有利于开发和维护，语义化更具可读性，代码更好维护。
-
-
 
 ## 说说 HTML5 在标签、属性、存储、API 上的新特性
 
@@ -63,8 +59,6 @@ window > document > html > body
     style={{ fill: 'none', stroke: color, strokeWidth: 2, }} />
   </svg>
   ```
-
-
 
 ## script 放在 body 头部就一定会阻塞吗
 
@@ -101,8 +95,6 @@ defer 模式下，JS 的加载是异步的，执行是被推迟的。等整个�
 ![img](https://pic1.zhimg.com/80/v2-42fde5cc6d7a45752139097065235560_720w.jpg)
 
 <img src="https://pic2.zhimg.com/80/v2-7e207a11164c964809ec9016371a6a79_720w.jpg" alt="img"  />
-
-
 
 ## meta 标签属性有哪些？
 
@@ -166,8 +158,6 @@ defer 模式下，JS 的加载是异步的，执行是被推迟的。等整个�
 <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
 ```
 
-
-
 ## src 和 href 的区别是什么？
 
 - href 是超文本引用，用于确定当前文档与资源之间的引用关系，会并行下载不会阻塞文档的解析
@@ -188,8 +178,6 @@ defer 模式下，JS 的加载是异步的，执行是被推迟的。等整个�
 
 如果没有人为取改变根元素字体大小的话，默认是`1rem = 16px`；根元素默认的字体大小是`16px`。
 
-
-
 ## JS 如何设置盒模型的宽和高
 
 假设已经获取的节点为 `dom`
@@ -208,8 +196,6 @@ window.getComputedStyle(dom).width / height;
 dom.getBoundingClientRect().width / height;
 ```
 
-
-
 ## label 标签有什么作用
 
 `label` 标签通常是写在表单内，它关联一个控件，使用 `label` 可以实现点击文字选取对应的控件。
@@ -218,39 +204,14 @@ dom.getBoundingClientRect().width / height;
 <input type="checkbox" id="test" /> <label for="test">test</label>
 ```
 
-
-
 ## img 中的 alt 和元素的 title 属性作用
 
 - img 的 alt 属性如果无法显示图像，浏览器将显示 alt 指定的内容
 - 元素 title 属性在鼠标移到元素上时显示 title 的内容
 
-
-
 ## HTML5 的 form 如何关闭自动完成功能
 
 将不想要自动完成的 `form` 或 `input` 设置为 `autocomplete=off`
-
-
-
-## 行内元素和块级元素有哪些
-
-- 行内元素
-
-一个行内元素只占据它对应标签的边框所包含的空间一般情况下，行内元素只能包含数据和其他行内元素
-
-```html
-b, big, i, small, tt abbr, acronym, cite, code, dfn, em, kbd, strong, samp, var a, bdo, br, img,
-map, object, q, script, span, sub, sup button, input, label, select, textarea
-```
-
-- 块级元素
-
-占据一整行，高度、行高、内边距和外边距都可以改变，可以容纳块级标签和其他行内标签
-
-```html
-header,form,ul,ol,table,article,div,hr,aside,figure,canvas,video,audio,footer
-```
 
 ## iframe 有那些优缺点
 

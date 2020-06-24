@@ -151,8 +151,6 @@ Array.prototype == [].__proto__; // true
 Array.prototype == {}.__proto__; // false
 ```
 
-
-
 ## JS 中类型转换有哪几种？
 
 类型转换只有三种：

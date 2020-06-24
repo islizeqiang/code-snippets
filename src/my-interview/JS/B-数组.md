@@ -123,8 +123,6 @@ string 还有个 repeat() 方法，创建指定数量的字符串副本
 1. 使用 try 监视代码块，在需要中断的地方抛出异常。
 2. 官方推荐方法（替换方法）：用 every 和 some 替代 forEach 函数。every 在碰到 return false 的时候，中止循环。some 在碰到 return ture 的时候，中止循环
 
-
-
 ## arguments 是什么？如何转化成数组？
 
 arguments 是一个对象，是 Iterator 对象
@@ -173,8 +171,6 @@ Array.prototype.map.call(arrayLike, x => x)
 Array.prototype.filter.call(arrayLike, x => 1)
 ```
 
-
-
 ## 都有哪些是 iterator 对象
 
 这些对象都有默认的迭代器，即具有 Symbol.iterator 属性，
@@ -193,8 +189,6 @@ Array.prototype.filter.call(arrayLike, x => 1)
 - `document.getElementsByTagName("div")` 返回的是可迭代对象但不是一个数组
   - `Array.isArray(document.getElementsByTagName('div'))` 返回 false
 - 所有通过 Generator（生成器）创建的迭代器都是可迭代对象
-
-
 
 ## for...in 和 for...of 的区别
 
@@ -235,8 +229,6 @@ Iterator 的遍历过程是这样的。
 - TypedArray
 - 函数的 arguments 对象
 - NodeList 对象
-
-
 
 ## Generator 函数
 
@@ -310,8 +302,6 @@ g.next(); // { value: 3, done: false }
 g.next(2); // { value: 2, done: true }
 ```
 
-
-
 ## in 操作符
 
 ```js
@@ -325,8 +315,6 @@ console.log(o.hasOwnProperty('name'));
 console.log('name' in o);
 ```
 
-
-
 ## 将数组扁平化并去除其中重复数据，最终得到一个升序且不重复的数组
 
 已知如下数组：
@@ -338,8 +326,6 @@ var arr = [ [1, 2, 2], [3, 4, 5, 5], [6, 7, 8, 9, [11, 12, [12, 13, [14] ] ] ], 
 ```js
 Array.from(new Set(arr.flat(Infinity))).sort((a, b) => a - b);
 ```
-
-
 
 ## 数组里面有 10 万个数据，取第一个元素和第 10 万个元素的时间相差多少
 
