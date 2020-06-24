@@ -37,6 +37,8 @@
 - 没有自己的 this，无法调用 call，apply，bind。
 - 没有 prototype 属性 ，而 new 命令在执行时需要将构造函数的 prototype 赋值给新的对象的 **proto**
 
+
+
 ## call 和 apply 的区别
 
 共同点：
@@ -72,6 +74,8 @@ func.apply(obj, {
 });
 // func 接收到的参数实际上是 1,2,3
 ```
+
+
 
 ## call 和 apply 的用途
 
@@ -119,9 +123,11 @@ Array.prototype.push.apply(arr1, arr2);
 console.log(arr1); // [1, 2, 3, 4, 5, 6]
 ```
 
+
+
 ## bind 的使用
 
-最后来说说 bind。在 MDN 上的解释是：bind() 方法创建一个新的函数，在调用时设置 this 关键字为提供的值。并在调用新函数时，将给定参数列表作为原函数的参数序列的前若干项。它的语法如下：
+在 MDN 上的解释是：bind() 方法创建一个新的函数，在调用时设置 this 关键字为提供的值。并在调用新函数时，将给定参数列表作为原函数的参数序列的前若干项。它的语法如下：
 
 ```js
 Function.bind(thisArg[, arg1[, arg2[, ...]]])

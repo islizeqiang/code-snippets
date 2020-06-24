@@ -10,7 +10,7 @@
 
   它是将浏览器窗口抽象成一个对象，作用是为了将浏览器窗口与 JS 连接起来，可以通过 JS 去操作。window 是他的核心对象，它表示一个包含 DOM 文档的窗口。也就说 window 对象里面包含了 DOM 对象。在浏览器环境下，JS 运行时默认的全局对象就是 window 对象。
 
-## docoment,window,html,body 的层级关系
+## docoment, window, html, body 的层级关系
 
 ```reStructuredText
 window > document > html > body
@@ -18,11 +18,13 @@ window > document > html > body
 
 - `window`是`BOM`的核心对象，它一方面用来获取或设置浏览器的属性和行为，另一方面作为一个全局对象。
 - `document`对象是一个跟文档相关的对象，拥有一些操作文档内容的功能。但是地位没有`window`高。
-- `html`元素对象和`document`元素对象是属于`html`文档的`DOM`对象，可以认为就是`html`源代码中那些标签所化成的对象。他们跟`div、select`什么对象没有根本区别。
+- `html`元素对象和`document`元素对象是属于`html`文档的`DOM`对象，可以认为就是`html`源代码中那些标签所化成的对象。他跟`div、select`什么对象没有根本区别。
 
 ## DOCTYPE 及其作用
 
 声明文档的类型，不再采用 HTML4 的标准，采用自己的一套新的 HTML5 标准
+
+
 
 ## HTML5 语义化有什么作用
 
@@ -31,6 +33,8 @@ window > document > html > body
 - 易于用户阅读，样式丢失的时候能让页面呈现清晰的结构。
 - 有利于 SEO，搜索引擎根据标签来确定上下文和各个关键字的权重。
 - 有利于开发和维护，语义化更具可读性，代码更好维护。
+
+
 
 ## 说说 HTML5 在标签、属性、存储、API 上的新特性
 
@@ -59,6 +63,8 @@ window > document > html > body
     style={{ fill: 'none', stroke: color, strokeWidth: 2, }} />
   </svg>
   ```
+
+
 
 ## script 放在 body 头部就一定会阻塞吗
 
@@ -95,6 +101,8 @@ defer 模式下，JS 的加载是异步的，执行是被推迟的。等整个�
 ![img](https://pic1.zhimg.com/80/v2-42fde5cc6d7a45752139097065235560_720w.jpg)
 
 <img src="https://pic2.zhimg.com/80/v2-7e207a11164c964809ec9016371a6a79_720w.jpg" alt="img"  />
+
+
 
 ## meta 标签属性有哪些？
 
@@ -158,6 +166,8 @@ defer 模式下，JS 的加载是异步的，执行是被推迟的。等整个�
 <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
 ```
 
+
+
 ## src 和 href 的区别是什么？
 
 - href 是超文本引用，用于确定当前文档与资源之间的引用关系，会并行下载不会阻塞文档的解析
@@ -178,6 +188,8 @@ defer 模式下，JS 的加载是异步的，执行是被推迟的。等整个�
 
 如果没有人为取改变根元素字体大小的话，默认是`1rem = 16px`；根元素默认的字体大小是`16px`。
 
+
+
 ## JS 如何设置盒模型的宽和高
 
 假设已经获取的节点为 `dom`
@@ -196,6 +208,8 @@ window.getComputedStyle(dom).width / height;
 dom.getBoundingClientRect().width / height;
 ```
 
+
+
 ## label 标签有什么作用
 
 `label` 标签通常是写在表单内，它关联一个控件，使用 `label` 可以实现点击文字选取对应的控件。
@@ -204,14 +218,20 @@ dom.getBoundingClientRect().width / height;
 <input type="checkbox" id="test" /> <label for="test">test</label>
 ```
 
+
+
 ## img 中的 alt 和元素的 title 属性作用
 
 - img 的 alt 属性如果无法显示图像，浏览器将显示 alt 指定的内容
 - 元素 title 属性在鼠标移到元素上时显示 title 的内容
 
+
+
 ## HTML5 的 form 如何关闭自动完成功能
 
 将不想要自动完成的 `form` 或 `input` 设置为 `autocomplete=off`
+
+
 
 ## 行内元素和块级元素有哪些
 

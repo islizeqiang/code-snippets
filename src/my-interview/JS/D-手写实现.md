@@ -159,6 +159,8 @@ console.log('p233 : ', myInstanceof(p1, Person));
 console.log('p23113 : ', myInstanceof(p1, Object));
 ```
 
+
+
 ## 手写一个 Object.is
 
 Object 在严格等于的基础上修复了一些特殊情况下的失误，具体来说就是+0 和-0，NaN 和 NaN。
@@ -176,6 +178,8 @@ function is(x, y) {
 }
 ```
 
+
+
 ## 手写一个节流
 
 ```js
@@ -191,6 +195,8 @@ const throttle = (fn, interval) => {
 };
 ```
 
+
+
 ## 手写一个防抖
 
 ```js
@@ -202,6 +208,8 @@ const debounce = (fn, ms = 0) => {
   };
 };
 ```
+
+
 
 ## 手写一个 Promise
 
@@ -273,6 +281,8 @@ new MyPromise1((resolve) => {
 });
 ```
 
+
+
 ## 手写一个 Promise.resolve
 
 实现要点
@@ -294,6 +304,8 @@ Promise.resolve = (params) => {
 };
 ```
 
+
+
 ## 手写一个 Promise.reject
 
 返回一个带有拒绝原因的 Promise 对象
@@ -305,6 +317,8 @@ Promise.reject = (reason) => {
   });
 };
 ```
+
+
 
 ## 手写一个 Promise.finally
 
@@ -320,6 +334,8 @@ Promise.prototype.finally = function (callback) {
   );
 };
 ```
+
+
 
 ## 手写一个 Promise.all
 

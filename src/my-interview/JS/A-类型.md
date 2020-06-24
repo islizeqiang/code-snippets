@@ -11,7 +11,14 @@
 - string
 - symbol
 
-引用数据类型: 对象 Object（包含普通对象-Object，数组对象-Array，函数对象-Function，正则对象-RegExp，日期对象-Date，数学函数-Math）
+引用数据类型:
+
+- 普通对象-Object
+- 数组对象-Array
+- 函数对象-Function
+- 正则对象-RegExp
+- 日期对象-Date
+- 数学函数-Math
 
 ## '1'.toString()为什么可以调用？
 
@@ -108,64 +115,43 @@ class myStr {
 console.log('23' instanceof myStr);
 ```
 
-## 说一下==数据类型转换吧
+## == 和 ===有什么区别以及==的转换规则
 
-当使用`==`进行比较的时候，会有以下转换规则（判断规则）：
+- ===叫做严格相等，是指：左右两边不仅值要相等，类型也要相等，例如'1'===1 的结果是 false，因为一边是 string，另一边是 number。
 
-1. 两边类型如果相同，值相等则相等，如 `2 == 3`肯定是为`false`的了
-2. 比较的双方都为基本数据类型：
-
-- 若是一方为`null、undefined`，则另一方必须为`null或者undefined`才为`true`，也就是`null == undefined`为`true`或者`null == null`为`true`，因为`undefined`派生于`null`
-- 其中一方为`String`，是的话则把`String`转为`Number`再来比较
-- 其中一方为`Boolean`，是的话则将`Boolean`转为`Number`再来比较
-
-1. 比较的一方有引用类型：
-
-- 将引用类型遵循类似`ToNumber`的转换形式来进行比较(也就是`toPrimitive(obj, 'defalut')`
-- 两方都为引用类型，则判断它们是不是指向同一个对象
-
-## == 和 ===有什么区别？
-
-1. ===叫做严格相等，是指：左右两边不仅值要相等，类型也要相等，例如'1'===1 的结果是 false，因为一边是 string，另一边是 number。
-
-2. ==不像===那样严格，对于一般情况，只要值相等，就返回 true，但==还涉及一些类型转换，它的转换规则如下：
-
-- 两边的类型是否相同，相同的话就比较值的大小，例如 1==2，返回 false
-- 判断的是否是 null 和 undefined，是的话就返回 true
-- 判断的类型是否是 String 和 Number，是的话，把 String 类型转换成 Number，再进行比较
-- 判断其中一方是否是 Boolean，是的话就把 Boolean 转换成 Number，再进行比较
-- 如果其中一方为 Object，且另一方为 String、Number 或者 Symbol，会将 Object 转换成字符串，再进行比较
+- ==会涉及一些类型转换，它的转换规则有 5 条
+  1. 两边的类型是否相同，相同的话就比较值的大小，例如 1==2，返回 false
+  2. 判断的是否是 null 和 undefined，是的话就返回 true
+  3. 判断的类型是否是 String 和 Number，是的话，把 String 类型转换成 Number，再进行比较
+  4. 判断其中一方是否是 Boolean，是的话就把 Boolean 转换成 Number，再进行比较
+  5. 如果其中一方为 Object，且另一方为 String、Number 或者 Symbol，会将 Object 转换成字符串，再进行比较，如果两个都是对象，则判断引用的指向
 
 ```js
 console.log({ a: 1 } == true); //false
 console.log({ a: 1 } == '[object Object]'); //true
 ```
 
-## 类型转换问题
-
-1. [] == ![]
-
-   == 中，左右两边都需要转换为数字然后进行比较。
-
-   []转换为数字为 0。
-
-   ![] 首先是转换为布尔值，由于[]作为一个引用类型转换为布尔值为 true, 因此![]为 false，进而在转换成数字，变为 0。
-
-   0 == 0 ， 结果为 true
-
-2.
+## 如何判断数组与对象
 
 ```js
-String('11') == new String('11');
-String('11') === new String('11');
+Array.isArray([]); // true
+
+Array.isArray({}); // false
+
+typeof []; // "object"
+
+typeof {}; // "object"
+
+Object.prototype == [].__proto__; // false
+
+Object.prototype == {}.__proto__; // true
+
+Array.prototype == [].__proto__; // true
+
+Array.prototype == {}.__proto__; // false
 ```
 
-分析： new String() 返回的是对象
 
-```js
-// ==` 的时候，实际运行的是
-String('11') == new String('11').toString();
-```
 
 ## JS 中类型转换有哪几种？
 
@@ -174,10 +160,6 @@ String('11') == new String('11').toString();
 - 转换成数字
 - 转换成布尔值
 - 转换成字符串
-
-转换具体规则如下:
-
-[![project](http://47.98.159.95/my_blog/015/type.jpg)](http://47.98.159.95/my_blog/015/type.jpg)
 
 1. **转 Boolean**
 
@@ -244,6 +226,7 @@ let a = {
     return '1';
   },
 };
+
 a > -1; // true
 ```
 
@@ -283,6 +266,32 @@ let a = {
   },
 };
 1 + a; // => 3
+```
+
+## 类型转换问题
+
+1. [] == ![]
+
+   == 中，左右两边都需要转换为数字然后进行比较。
+
+   []转换为数字为 0。
+
+   ![] 首先是转换为布尔值，由于[]作为一个引用类型转换为布尔值为 true, 因此![]为 false，进而在转换成数字，变为 0。
+
+   0 == 0 ， 结果为 true
+
+2.
+
+```js
+String('11') == new String('11');
+String('11') === new String('11');
+```
+
+分析： new String() 返回的是对象
+
+```js
+// ==` 的时候，实际运行的是
+String('11') == new String('11').toString();
 ```
 
 ## 如何让 if(a == 1 && a == 2)条件成立？
@@ -340,16 +349,6 @@ let a = {
   },
 };
 
-if (a == 1 && a == 2 && a == 3) {
-  console.log('1');
-}
-```
-
-> 数组这个就有点妖了
-
-```js
-var a = [1, 2, 3];
-a.join = a.shift;
 if (a == 1 && a == 2 && a == 3) {
   console.log('1');
 }

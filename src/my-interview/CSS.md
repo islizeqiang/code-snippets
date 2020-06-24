@@ -1,12 +1,12 @@
 [TOC]
 
-## 布局问题
+## 三栏布局
 
-#### 三栏布局
+题目：假设高度已知，请写出三栏布局，其中左栏、右栏宽度各为 300px，中间自适应。
 
-题目：假设高度已知，请写出三栏布局，其中左栏、右栏宽度各为 300px，中间自适应。解答：可以有很多种布局方式，这里列出五种：float 布局，absolute 布局，flex 布局，table 布局，grid 布局，代码如下：
+解答：可以有很多种布局方式，这里列出五种：float 布局，absolute 布局，flex 布局，table 布局，grid 布局
 
-#### div 垂直水平居中布局
+## div 垂直水平居中布局
 
 ```html
 <div class="parent">
@@ -29,6 +29,10 @@ div.parent {
 ```css
 div.parent {
   display: grid;
+  align-content: center;
+
+  /* 也可采用父元素的 */
+  justify-content: center;
 }
 div.child {
   align-self: center;
@@ -42,29 +46,22 @@ div.child {
 div.parent {
   position: relative;
 }
+
 div.child {
   position: absolute;
   top: 50%;
   left: 50%;
+
+  /* 也可以在已知高度宽的情况下， 假设宽高都是100px */
+  margin: -50px 0 0 -50px;
+
+  /* 水平转换元素的 -50% -50%  */
   transform: translate(-50%, -50%);
 }
 ```
 
 ```css
-/* 或者 */
-div.child {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 50px;
-  height: 10px;
-  margin-top: -5px;
-  margin-left: -25px;
-}
-```
-
-```css
-/* 或 */
+/* 或者在绝对定位下采用margin: auto */
 div.child {
   position: absolute;
   top: 0;
@@ -77,23 +74,7 @@ div.child {
 }
 ```
 
-```css
-div.parent {
-  font-size: 0;
-  text-align: center;
-  &::before {
-    display: inline-block;
-    width: 0;
-    height: 100%;
-    vertical-align: middle;
-    content: '';
-  }
-}
-div.child {
-  display: inline-block;
-  vertical-align: middle;
-}
-```
+
 
 ## 行内元素、块级元素区别
 
@@ -109,14 +90,16 @@ span img a input button select
 div table form canvas header section
 ```
 
+
+
 ## BFC 及其应用
 
 BFC 就是块级格式上下文，是页面盒模型布局中的一种 CSS 渲染模式，相当于一个独立的容器，里面的元素和外部的元素相互不影响。创建 BFC 的方式有：
 
 1. html 根元素
 2. float 浮动 值不为 none
-3. positon 的值不是 static 和 relative
-4. overflow 不为 visiable
+3. position 的值不是 static 和 relative
+4. overflow 不为 visible
 5. `display`的值是`table-cell`、`table-caption`、`inline-block`、`flex`、或`inline-flex`。
 
 BFC 主要的作用是：
@@ -153,9 +136,13 @@ BFC 作用：
 .parent { overflow:hidden; } .float { float:left; }
 ```
 
+
+
 ## css 选择器优先级
 
 !important > 行内样式>ID 选择器 > 类选择器 > 标签 > 通配符 > 继承 > 浏览器默认属性
+
+
 
 ## 已知如下代码，如何修改才能让图片宽度为 300px ？注意下面代码不可修改。
 
