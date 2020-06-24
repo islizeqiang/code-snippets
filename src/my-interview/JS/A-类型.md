@@ -97,11 +97,11 @@ a === void 0;
 
 ## instanceof 的原理
 
-instanceof 用于判断一个引用类型是否属于某构造函数；还可以在继承关系中用来判断一个实例是否属于它的父类型。 instanceof 的原理是判断实例对象的 `__proto__` 是否与构造函数的 `prototype` 指向同一个引用（即同一个原型）
+instanceof 的原理是判断实例对象的 `__proto__` 是否与构造函数的 `prototype` 指向同一个引用（即同一个原型），只要在实例对象的原型链上的构造函数，instaceof 都会返回 true。
 
 ![img](https://pic1.zhimg.com/80/v2-330ec703451af6c71b641b8ba16741c8_720w.jpg)
 
-只要在实例对象的原型链上的构造函数，instaceof 都会返回 true。看下图： obj3 是 M 的实例，所以 `obj3 instanceof M = true` ; 同时 `obj3 instanceof Object` 的结果也是 true
+
 
 ## 使用 instanceof 判断基础数据类型
 

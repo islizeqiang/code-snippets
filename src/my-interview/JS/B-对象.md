@@ -26,19 +26,6 @@ var obj4 = Object.create(p);
 ## 对象引用相关代码题
 
 ```js
-function changeObjProperty(o) {
-  o.siteUrl = 'http://www.baidu.com';
-  o = new Object();
-  o.siteUrl = 'http://www.google.com';
-}
-let webSite = new Object();
-changeObjProperty(webSite);
-console.log(webSite.siteUrl);
-```
-
-对象传值传的是引用，但是引用是 copy 给函数形参。
-
-```js
 // 这里把o改成a
 // webSite引用地址的值copy给a了
 function changeObjProperty(a) {
@@ -55,25 +42,11 @@ changeObjProperty(webSite);
 console.log(webSite); // {name: 123, siteUrl: 'http://www.baidu.com'}
 ```
 
-`parseInt()` 函数解析一个字符串参数，并返回一个指定基数的整数 (数学系统的基础)。
+parseInt() 函数解析一个字符串参数，并返回一个指定基数的整数 (数学系统的基础)。
 
 ## 对象浅拷贝和深拷贝有什么区别
 
-在 `JS` 中，除了基本数据类型，还存在对象、数组这种引用类型。 基本数据类型，拷贝是直接拷贝变量的值，而引用类型拷贝的其实是变量的地址。
-
-```js
-let o1 = { a: 1 };
-let o2 = o1;
-```
-
-在这种情况下，如果改变 `o1` 或 `o2` 其中一个值的话，另一个也会变，因为它们都指向同一个地址。
-
-```js
-o2.a = 3;
-console.log(o1.a); // 3
-```
-
-而浅拷贝和深拷贝就是在这个基础之上做的区分，如果在拷贝这个对象的时候，只对基本数据类型进行了拷贝，而对引用数据类型只是进行了引用的传递，而没有重新创建一个新的对象，则认为是浅拷贝。反之，在对引用数据类型进行拷贝的时候，创建了一个新的对象，并且复制其内的成员变量，则认为是深拷贝。
+区别在于对引用数据数据类型是否仅仅拷贝了引用的地址，如果仅仅拷贝了引用地址，则是浅拷贝，如果是重新创建了一个新的对象，则是深拷贝。
 
 ## 浅拷贝的方式有几种
 
@@ -126,7 +99,7 @@ JSON.parse(JSON.stringify());
 - 会忽略掉函数
 - 会忽略掉 undefined
 - 会忽略掉 Symbol
-- 会将 RegExp,Set, Map 拷贝成空对象
+- 会将 RegExp, Set,  Map 拷贝成空对象
 
 推荐使用 lodash 的深拷贝函数
 
@@ -233,5 +206,7 @@ JSON.parse(JSON.stringify());
 - **Object.prototype.toString.call()**
 
   每一个继承 Object 的对象都有 `toString` 方法，如果 `toString` 方法没有重写的话，会返回 `[Object type]`，其中 type 为对象的类型。
+
+
 
 ## Proxy 和 Object.defineProperty(obj, prop, descriptor)
