@@ -223,8 +223,6 @@ BFC 主要的作用是：
 
 - CSS3 规范中要求使用双冒号(::)表示伪元素，用单冒号(:)表示伪类
 
-
-
 ## 说说 z-index 和 position
 
 - 使用 z-index 时，必须同时使用 position 属性，而且属性值必须是 relative、absolute、fixed、sticky。即不为 static
@@ -261,28 +259,26 @@ flex   grid   none   block  inline   inline-block   table
 ## 去除 inline-block 元素间间距的方法
 
 - 使用 margin 负值
-- letter-spacing  设置每个字母之间的距离
-- word-spacing   设置每个单词之间的距离
-
-
+- letter-spacing 设置每个字母之间的距离
+- word-spacing 设置每个单词之间的距离
 
 ## animation 和 transition 的区别
 
 transition
 
 ```
-transition: transition-property transition-durationtransition-timing-function transition-delay 
+transition: transition-property transition-durationtransition-timing-function transition-delay
 ```
 
-transition的优点在于简单易用，但是它有几个很大的局限。
+transition 的优点在于简单易用，但是它有几个很大的局限。
 
-（1）transition需要事件触发，所以没法在网页加载时自动发生。
+（1）transition 需要事件触发，所以没法在网页加载时自动发生。
 
-（2）transition是一次性的，不能重复发生，除非一再触发。
+（2）transition 是一次性的，不能重复发生，除非一再触发。
 
-（3）transition只能定义开始状态和结束状态，不能定义中间状态，也就是说只有两个状态。
+（3）transition 只能定义开始状态和结束状态，不能定义中间状态，也就是说只有两个状态。
 
-（4）一条transition规则，只能定义一个属性的变化，不能涉及多个属性。
+（4）一条 transition 规则，只能定义一个属性的变化，不能涉及多个属性。
 
 animation
 
@@ -298,8 +294,6 @@ animation: name duration timing-function delay iteration-count direction;
 | _[animation-delay](https://www.w3school.com.cn/cssref/pr_animation-delay.asp)_ | 规定在动画开始之前的延迟。(2s) |
 | _[animation-iteration-count](https://www.w3school.com.cn/cssref/pr_animation-iteration-count.asp)_ | 规定动画应该播放的次数。(n \| infinite) n 次/无限 |
 | _[animation-direction](https://www.w3school.com.cn/cssref/pr_animation-direction.asp)_ | 规定是否应该轮流反向播放动画。(normal \| alternate) 正常/反向 |
-
-
 
 ## animation steps()功能符？
 
@@ -317,12 +311,10 @@ steps(number, position)
 
 - number: 数值，表示把动画分成了多少段
 - position: 表示动画是从时间段的开头连续还是末尾连续。支持 start 和 end 两个关键字，含义分别如下：
+
   - `start`：表示直接开始。
-  
+
   - `end`：表示戛然而止。是默认值。
-  
-
-
 
 ## 你了解 CSS Flex 和 Grid 吗
 
@@ -331,8 +323,6 @@ Flex 主要用于一维布局，而 Grid 则用于二维布局。
 - Flex： flex 容器中存在两条轴， 横轴和纵轴， 容器中的每个单元称为 flex item。
 
 - Grid：CSS 网格布局用于将页面分割成数个主要区域，或者用来定义组件内部元素间大小、位置和图层之间的关系，像表格一样，网格布局让我们能够按行或列来对齐元素。
-
-
 
 ## 介绍一下 flex 布局
 
@@ -454,15 +444,9 @@ flex 有两个快捷值：`auto`和`none`，分别代表`1 1 auto`（有剩余�
 
 脱离文档流，也就是**将元素从普通的布局排版中拿走**，其他盒子在定位的时候，会把其当作不存在而进行定位。
 
-
-
 ## 常规流(文档流)是个怎样的排列关系
 
 将窗体自上而下分成一行一行,并在每行中按从左至右的挨次排放元素。
-
-
-
-
 
 ## DIV+CSS 布局的好处
 
@@ -471,8 +455,6 @@ flex 有两个快捷值：`auto`和`none`，分别代表`1 1 auto`（有剩余�
 3. 对 SEO 搜索引擎更加友好，且 H5 又新增了许多语义化标签更是如此
 4. 允许更多炫酷的页面效果，丰富了页面
 5. 符合 W3C 标准，保证网站不会因为网络应用的升级而被淘汰
-
-
 
 ## 如何解决 a 标点击后 hover 事件失效的问题?
 
@@ -499,8 +481,6 @@ a:hover {
 }
 ```
 
-
-
 ## rem 和 em 的区别
 
 **em:**
@@ -511,28 +491,20 @@ a:hover {
 
 以根元素的字体大小为基准。例如`html`的`font-size: 14px`，则子级`1rem = 14px`。
 
-
-
-
-
 ## 什么是 GPU 加速，如何使用 GPU 加速，GPU 加速的缺点
 
 - 优点：使用 transform、opacity、filters 等属性时，会直接在 GPU 中完成处理，这些属性的变化不会引起回流重绘
 - 缺点：GPU 渲染字体会导致字体模糊，过多的 GPU 处理会导致内存问题
 
-
-
 ## CSS 盒模型
 
 ```css
 /* 设置标准模型， 元素宽高就是宽高 */
-box-sizing: content-box;  
+box-sizing: content-box;
 
 /* 设置IE模型, 元素宽高是元素本身+padding+border */
 box-sizing: border-box;
 ```
-
-
 
 ## 重置（resetting）CSS 和 标准化（normalizing）CSS 的区别是什么？
 
@@ -540,10 +512,6 @@ box-sizing: border-box;
 - **标准化（Normalizing）**： 标准化没有去掉所有的默认样式，而是保留了有用的一部分，同时还纠正了一些常见错误。
 
 当需要实现非常个性化的网页设计时，我会选择重置的方式，因为我要写很多自定义的样式以满足设计需求，这时候就不再需要标准化的默认样式了。
-
-
-
-
 
 ## 如何解决不同浏览器的样式兼容性问题？
 
@@ -556,9 +524,7 @@ box-sizing: border-box;
 
 ## css hack 是什么
 
-针对不同的浏览器写不同的兼容的CSS code 的过程，就叫 CSS hack
-
-
+针对不同的浏览器写不同的兼容的 CSS code 的过程，就叫 CSS hack
 
 ## 有什么不同的方式可以隐藏内容（使其仅适用于屏幕阅读器）？
 
@@ -570,8 +536,6 @@ box-sizing: border-box;
 
 - `position: absolute; left: -99999px`： 将它置于屏幕之外。
 
-
-
 ## 除了`screen`，你还能说出一个 @media 属性的例子吗？
 
 ```css
@@ -582,7 +546,7 @@ box-sizing: border-box;
 }
 ```
 
-*媒体类型*（*Media types*）描述设备的一般类别。除非使用 `not` 或 `only` 逻辑操作符，媒体类型是可选的，并且会（隐式地）应用 `all` 类型。
+_媒体类型_（_Media types_）描述设备的一般类别。除非使用 `not` 或 `only` 逻辑操作符，媒体类型是可选的，并且会（隐式地）应用 `all` 类型。
 
 - `all`
 
@@ -590,7 +554,7 @@ box-sizing: border-box;
 
 - `print`
 
-  适用于在打印预览模式下在屏幕上查看的分页材料和文档。 
+  适用于在打印预览模式下在屏幕上查看的分页材料和文档。
 
 - `screen`
 
@@ -600,14 +564,10 @@ box-sizing: border-box;
 
   主要用于语音合成器。
 
-
-
 ## 编写高效的 CSS 应该注意什么？
 
 - 匹配语句要短
 - 避免使用标签和通用选择器，因为会匹配大量元素，再判断
-
-
 
 ## 使用 CSS 预处理的优缺点分别是什么？
 
@@ -625,13 +585,9 @@ box-sizing: border-box;
 - 重新编译的时间可能会很慢。
 - Less 中，变量名称以`@`作为前缀，容易与 CSS 关键字混淆，如`@media`、`@import`和`@font-face`。
 
-
-
 ## 如何实现一个使用非标准字体的网页设计？
 
 使用`@font-face`并为不同的`font-weight`定义`font-family`。
-
-
 
 ## 响应式设计与自适应设计有何不同？
 
@@ -639,21 +595,17 @@ box-sizing: border-box;
 
 自适应设计：通过监测当前设备，从预先定义好的方案里挑选合适的方案。就像用多个球，然后根据不同的篮筐大小，去选择最合适的一个。
 
-
-
 ## 视网膜分辨率的图形当中使用什么技术？
 
 1. 用更高分辨率的背景图：通过媒体查询
 
    ```css
-   @media only screen and (min-device-pixel-ratio: 2) { 
-     background-image: 2x
+   @media only screen and (min-device-pixel-ratio: 2) {
+     background-image: 2x;
    }
    ```
 
-2. 尽可能多使用svg 和图标字体
-
-
+2. 尽可能多使用 svg 和图标字体
 
 ## CSS 中 link 和@import 的区别
 
@@ -661,8 +613,6 @@ box-sizing: border-box;
 - 页面被加载的时，link 会同时被加载，而@import 引用的 CSS 会等到页面被加载完再加载
 - import 只在 IE5 以上才能识别，而 link 是 HTML 标签，无兼容问题
 - link 方式的样式的权重 高于@import 的权重
-
-
 
 ## 请解释什么是雪碧图（css sprites），以及如何实现？
 
@@ -677,24 +627,20 @@ box-sizing: border-box;
 - 减少加载多张图片的 HTTP 请求数（一张雪碧图只需要一个请求）。但是对于 HTTP2 而言，加载多张图片不再是问题。
 - 提前加载资源，防止在需要时才在开始下载引发的问题，比如只出现在`:hover`伪类中的图片，不会出现闪烁。
 
-
-
 ## 如何用 css 实现瀑布流布局
 
 父元素设置
 
-1. column-count: 2;   描述元素的列数。
-2. column-gap: 10px;   设置元素列之间的间隔大小。
+1. column-count: 2; 描述元素的列数。
+2. column-gap: 10px; 设置元素列之间的间隔大小。
 
 子元素设置
 
-1.  break-inside: avoid;   描述了在多列布局页面下的内容盒子如何中断
+1.  break-inside: avoid; 描述了在多列布局页面下的内容盒子如何中断
 
-   avoid:   避免在主体框中插入任何中断
+avoid: 避免在主体框中插入任何中断
 
-
-
-## object-fit属性
+## object-fit 属性
 
 - contain
 
@@ -715,8 +661,6 @@ box-sizing: border-box;
 - scale-down
 
   内容的尺寸与 `none` 或 `contain` 中的一个相同，取决于它们两个之间谁得到的对象尺寸会更小一些。
-
-
 
 ## 分析比较 opacity: 0、visibility: hidden、display: none 优劣和适用场景
 
@@ -743,38 +687,3 @@ box-sizing: border-box;
 3. 性 能：提升为合成层，不会触发重绘，性能较高；
 4. 继 承：会被子元素继承,且，子元素并不能通过 `opacity: 1` 来取消隐藏；
 5. transition：`transition` 不支持 `opacity`。
-
-
-
-## 介绍下重绘和回流（Repaint & Reflow），以及如何进行优化
-
-回流必定会发生重绘，重绘不一定会引发回流。
-
-1. 重绘
-
-   由于节点的几何属性发生改变或者由于样式发生改变而不会影响布局的，称为重绘，例如`outline`, `visibility`, `color`、`background-color`等
-
-2. 回流
-
-   回流是布局或者几何属性的改变。其变化涉及到部分页面（或是整个页面）的布局更新。一个元素的回流可能会导致了其所有子元素以及 DOM 中紧随其后的元素的变化。
-
-3. 减少重绘与回流
-
-- CSS
-
-  - **使用 `transform` 替代 `top`**
-  - **使用 `visibility` 替换 `display: none`** ，因为前者只会引起重绘，后者会引发回流（改变了布局
-
-  - **避免使用`table`布局**，可能很小的一个小改动会造成整个 `table` 的重新布局。
-
-  - **尽可能在`DOM`树的最末端改变`class`**，回流是不可避免的，但可以减少其影响。尽可能在 DOM 树的最末端改变 class，可以限制了回流的范围，使其影响尽可能少的节点。
-
-  - **将动画效果应用到`position`属性为`absolute`或`fixed`的元素上**，避免影响其他元素的布局，这样只是一个重绘，而不是回流。
-
-  - **将频繁重绘或者回流的节点设置为图层**，图层能够阻止该节点的渲染行为影响别的节点，例如`will-change`、`video`、`iframe`等标签，浏览器会自动将该节点变为图层。
-
-  - **CSS3 硬件加速（GPU 加速）**，使用 css3 硬件加速，可以让`transform`、`opacity`、`filters`这些动画不会引起回流 。
-
-- JavaScript
-  - **避免频繁操作样式**，最好一次性重写`style`属性，或者将样式列表定义为`class`并一次性更改`class`属性。
-  - **对具有复杂动画的元素使用绝对定位**，使它脱离文档流，否则会引起父元素及后续元素频繁回流。

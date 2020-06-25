@@ -122,6 +122,8 @@ defer 模式下，JS 的加载是异步的，执行是被推迟的。等整个�
 <meta name="description" content="网页描述" />
 <!-- 搜索引擎索引方式，一般为all，不用深究 -->
 <meta name="robots" content="all" />
+<!-- 针对WebApp全屏模式，隐藏状态栏/设置状态栏颜色，content的值为default | black | black-translucent -->
+<meta name="apple-mobile-web-app-status-bar-style" content="black-transl" />
 <!-- 移动端常用视口设置 -->
 <meta
   name="viewport"
@@ -152,10 +154,13 @@ defer 模式下，JS 的加载是异步的，执行是被推迟的。等整个�
 <meta http-equiv="set-cookie" content="name=value expires=Fri, 12 Jan 2001 18:18:18 GMT,path=/" />
 <!-- 使用浏览器版本 -->
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<!-- 针对WebApp全屏模式，隐藏状态栏/设置状态栏颜色，content的值为default | black | black-translucent -->
-<meta name="apple-mobile-web-app-status-bar-style" content="black-transl" />
 <!--把`http`请求换为`https`-->
 <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+<!-- 设置CSP -->
+<meta
+  http-equiv="Content-Security-Policy"
+  content="default-src 'self'; img-src https://*; child-src 'none';"
+/>
 ```
 
 ## src 和 href 的区别是什么？
