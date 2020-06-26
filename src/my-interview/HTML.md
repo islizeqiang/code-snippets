@@ -18,7 +18,7 @@ window > document > html > body
 
 - `window`是`BOM`的核心对象，它一方面用来获取或设置浏览器的属性和行为，另一方面作为一个全局对象。
 - `document`对象是一个跟文档相关的对象，拥有一些操作文档内容的功能。但是地位没有`window`高。
-- `html`元素对象和`document`元素对象是属于`html`文档的`DOM`对象，可以认为就是`html`源代码中那些标签所化成的对象。他跟`div、select`什么对象没有根本区别。
+- `html`元素对象和`body`元素对象是属于`html`文档的`DOM`对象，可以认为就是`html`源代码中那些标签所化成的对象。他跟`div、select`什么对象没有根本区别。
 
 ## DOCTYPE 及其作用
 
@@ -223,16 +223,14 @@ dom.getBoundingClientRect().width / height;
 - 优点：
 
   1. iframe 能够原封不动的把嵌入的网页展现出来。
-
-2. 我们通过 iframe 将所有文件资源都展示出来，只要后端给到一个 url 便可展示，包括 img，video，网页 url
+  2. 我们通过 iframe 将所有文件资源都展示出来，只要后端给到一个 url 便可展示，包括 img，video，网页 url
 
 - 缺点：
 
   1. SEO 不友好
 
-  2. 创建比一般的 DOM 元素慢了 1-2 个数量级
-
-6. iframe 标签会阻塞页面的的加载
+2. 创建比一般的 DOM 元素慢了 1-2 个数量级
+3. iframe 标签会阻塞页面的的加载
 
 ## 什么是渐进式渲染（progressive rendering）？
 

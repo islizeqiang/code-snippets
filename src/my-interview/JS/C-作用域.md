@@ -4,6 +4,12 @@
 
 定义： 有权访问另外一个函数作用域中的变量的函数，存在意义在于间接访问函数内部的变量。但也因为闭包引用着另一个函数的变量，导致另一个函数已经不使用了也无法销毁，所以闭包使用过多，会占用较多的内存，这也是一个副作用。
 
+常见的场景
+
+1. 返回一个函数，可读取内部函数的变量
+2. 定时器，事件监听回调函数，保存了 window 和当前作用域
+3. 立即执行函数，保存了 window 和当前作用域
+
 闭包存在的意义就是让我们可以间接访问函数内部的变量。
 
 ```js
@@ -183,47 +189,27 @@ baz = 'qux';
 var name = 'Tom';
 (function () {
   if (typeof name == 'undefined') {
-    name = 'Jack';
-    console.log('Goodbye ' + name);
-  } else {
-    console.log('Hello ' + name);
-  }
-})();
-```
-
-```js
-// Goodbye Jack
-var name = 'Tom';
-(function () {
-  if (typeof name == 'undefined') {
     var name = 'Jack';
     console.log('Goodbye ' + name);
   } else {
     console.log('Hello ' + name);
   }
 })();
+// Hello Tom
 ```
 
 ```js
-// Hello Tom
 var name = 'Tom';
 (function () {
   if (typeof name == 'undefined') {
     let name = 'Jack';
+    // 或者 name = 'Jack'
     console.log('Goodbye ' + name);
   } else {
     console.log('Hello ' + name);
   }
 })();
-```
-
-```js
-var b = 10;
-(function b() {
-  b = 20;
-  console.log(b);
-})();
-// 打印 Function b
+// Hello Tom
 ```
 
 ```js
@@ -262,20 +248,18 @@ var b = 10;
 ```js
 var b = 10;
 (function b() {
-  var b = 20; // IIFE内部变量
-  console.log(b); // 20
-  console.log(window.b); // 10
+  b = 20;
+  console.log(b);
 })();
+// 打印 Function b
 ```
 
 ```js
-var a = 10;
-(function () {
-  console.log(a);
-  a = 5;
-  console.log(window.a);
-  var a = 20;
-  console.log(a);
+var b = 10;
+(function b() {
+  var b = 20; // IIFE内部变量
+  console.log(b); // 20
+  console.log(window.b); // 10
 })();
 ```
 
