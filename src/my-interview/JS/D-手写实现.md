@@ -182,7 +182,8 @@ function is(x, y) {
 const throttle = (fn, interval) => {
   let last = 0;
   return (...args) => {
-    const now = +new Date();
+    const now = Number(new Date())
+    // const now = +new Date();
     // 还没到时间
     if (now - last < interval) return;
     last = now;

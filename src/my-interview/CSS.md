@@ -116,7 +116,7 @@ BFC 主要的作用是：
    </div>
    ```
 
-2. 防止同一 BFC 容器中的相邻元素间的外边距重叠问题 原因：对这两个块分别设置 BFD，则不会重叠
+2. 防止同一 BFC 容器中的相邻元素间的外边距重叠问题 原因：对这两个块分别设置 BFC，则不会重叠
 
    ```html
    <style>
@@ -267,7 +267,7 @@ flex   grid   none   block  inline   inline-block   table
 transition
 
 ```
-transition: transition-property transition-durationtransition-timing-function transition-delay
+transition: transition-property transition-duration transition-timing-function transition-delay
 ```
 
 transition 的优点在于简单易用，但是它有几个很大的局限。
@@ -314,7 +314,11 @@ steps(number, position)
 
   - `start`：表示直接开始。
 
+    ![start执行的关键点](https://image.zhangxinxu.com/image/blog/201806/2018-06-11_223135.png)
+  
   - `end`：表示戛然而止。是默认值。
+  
+    ![end执行的关键点](https://image.zhangxinxu.com/image/blog/201806/2018-06-11_223630.png)
 
 ## 你了解 CSS Flex 和 Grid 吗
 
@@ -348,7 +352,7 @@ Flex 主要用于一维布局，而 Grid 则用于二维布局。
 }
 ```
 
-- flex-directionc **主轴(横轴)方向**
+- flex-direction **主轴(横轴)方向**
 
 ```css
 .container {
