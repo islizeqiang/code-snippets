@@ -72,30 +72,6 @@ for (var i = 1; i <= 5; i++) {
    }
    ```
 
-## 全局作用域中，用 const 和 let 声明的变量不在 window 上，那到底在哪里？如何去获取？
-
-在 ES5 中，顶层对象的属性和全局变量是等价的，var 命令和 function 命令声明的全局变量，自然也是顶层对象。
-
-但 ES6 规定，var 命令和 function 命令声明的全局变量，依旧是顶层对象的属性，但 let 命令、const 命令、class 命令声明的全局变量，不属于顶层对象的属性。
-
-在全局作用域中，用 let 和 const 声明的全局变量并没有在全局对象中，只是一个块级作用域（Script）中
-
-在定义变量的块级作用域中就能获取
-
-const 和 let 会生成块级作用域，可以理解为
-
-```js
-let a = 10;
-const b = 20;
-相当于：
-(function(){
-    var  a = 10;
-    var b = 20;
-})()
-```
-
-ES5 没有块级作用域的概念，只有函数作用域，可以近似理解成这样。 所以外层 window 必然无法访问。
-
 ## 使用 let、var 和 const 创建变量有什么区别
 
 - 函数提升优先于变量提升，函数提升会把整个函数挪到作用域顶部，变量提升只会把声明挪到作用域顶部
@@ -241,17 +217,8 @@ var b = 10;
 (function b() {
   window.b = 20;
   console.log(b); // [Function b]
-  console.log(window.b); // 20是必然的
+  console.log(window.b); // 20
 })();
-```
-
-```js
-var b = 10;
-(function b() {
-  b = 20;
-  console.log(b);
-})();
-// 打印 Function b
 ```
 
 ```js

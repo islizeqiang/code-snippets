@@ -71,7 +71,7 @@ console.log({ a: 23 }.constructor === Array);
 
 ## type of 为什么对 null 错误的显示
 
-这只是 JS 存在的一个悠久 Bug。在 JS 的最初版本中使用的是 32 位系统，为了性能考虑使用低位存储变量的类型信息，000 开头代表是对象然而 null 表示为全零，所以将它错误的判断为 object 。
+这只是 JS 存在的一个悠久 Bug。在 JS 的最初版本中使用的是 32 位系统，为了性能考虑使用低位存储变量的类型信息，000 开头代表是对象，然而 null 表示为全零，所以将它错误的判断为 object 。
 
 ## instanceof 和 type of 的区别
 
@@ -107,28 +107,21 @@ class myStr {
 console.log('23' instanceof myStr);
 ```
 
-## JS 中类型转换有哪几种？
+## ==类型转换
 
-类型转换只有三种：
+- ===叫做严格相等，是指：左右两边不仅值要相等，类型也要相等，例如'1'===1 的结果是 false，因为一边是 string，另一边是 number。
 
-- 转换成数字
-- 转换成布尔值
-- 转换成字符串
+- ==会涉及一些类型转换，它的转换规则有 5 条
+  1. 两边的类型是否相同，相同的话就比较值的大小，例如 1==2，返回 false
+  2. 判断的是否是 null 和 undefined，是的话就返回 true
+  3. 判断的类型是否是 String 和 Number，是的话，把 String 类型转换成 Number，再进行比较
+  4. 判断其中一方是否是 Boolean，是的话就把 Boolean 转换成 Number，再进行比较
+  5. 如果其中一方为 Object，且另一方为 String、Number 或者 Symbol，会将 Object 转换成字符串，再进行比较，如果两个都是对象，则判断引用的指向
 
-1. **转 Boolean**
-
-在条件判断时，除了 `undefined`， `null`， `false`， `NaN`， `''`， `0`， `-0`，其他所有值都转为 `true`，包括所有对象。
-
-2. **对象转原始类型**
-
-对象在转换类型的时候，会调用内置的 `[[ToPrimitive]]` 函数，对于该函数来说，算法逻辑一般来说如下：
-
-- 如果已经是原始类型了，那就不需要转换了
-- 调用 `x.valueOf()`，如果转换为基础类型，就返回转换的值
-- 调用 `x.toString()`，如果转换为基础类型，就返回转换的值
-- 如果都没有返回原始类型，就会报错
-
-当然你也可以重写 `Symbol.toPrimitive` ，该方法在转原始类型时调用优先级最高。
+```js
+console.log({ a: 1 } == true); //false
+console.log({ a: 1 } == '[object Object]'); //true
+```
 
 ## 四则运算符类型转换
 
@@ -186,22 +179,6 @@ a > -1; // true
 
 在以上代码中，因为 `a` 是对象，所以会通过 `valueOf` 转换为原始类型再比较值。
 
-## ==类型转换
-
-- ===叫做严格相等，是指：左右两边不仅值要相等，类型也要相等，例如'1'===1 的结果是 false，因为一边是 string，另一边是 number。
-
-- ==会涉及一些类型转换，它的转换规则有 5 条
-  1. 两边的类型是否相同，相同的话就比较值的大小，例如 1==2，返回 false
-  2. 判断的是否是 null 和 undefined，是的话就返回 true
-  3. 判断的类型是否是 String 和 Number，是的话，把 String 类型转换成 Number，再进行比较
-  4. 判断其中一方是否是 Boolean，是的话就把 Boolean 转换成 Number，再进行比较
-  5. 如果其中一方为 Object，且另一方为 String、Number 或者 Symbol，会将 Object 转换成字符串，再进行比较，如果两个都是对象，则判断引用的指向
-
-```js
-console.log({ a: 1 } == true); //false
-console.log({ a: 1 } == '[object Object]'); //true
-```
-
 ## 如何判断数组与对象
 
 ```js
@@ -221,8 +198,6 @@ Array.prototype == [].__proto__; // true
 
 Array.prototype == {}.__proto__; // false
 ```
-
-
 
 ## 对象转原始类型是根据什么流程运行的？
 

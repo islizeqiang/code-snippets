@@ -73,32 +73,11 @@ child.getName(); // '写代码像蔡徐抻'
 缺点:
 
 1. 由于所有 Child 实例原型都指向同一个 Parent 实例, 因此对某个 Child 实例的父类引用类型变量修改会影响所有的 Child 实例
-2. 在创建子类实例时无法向父类构造传参, 即没有实现`super()`的功能
-
-```js
-// 示例:
-function Parent() {
-  this.name = ['写代码像蔡徐抻'];
-}
-Parent.prototype.getName = function () {
-  return this.name;
-};
-function Child() {}
-
-Child.prototype = new Parent();
-Child.prototype.constructor = Child;
-
-// 测试
-const child1 = new Child();
-const child2 = new Child();
-child1.name[0] = 'foo';
-console.log(child1.name); // ['foo']
-console.log(child2.name); // ['foo'] (预期是['写代码像蔡徐抻'], 对child1.name的修改引起了所有child实例的变化)
-```
+2. 在创建子类实例时无法向父类构造传参, 即没有实现`super()`的功能构造函数继承
 
 - 构造函数继承
 
-构造函数继承，即在子类的构造函数中执行父类的构造函数，并为其绑定子类的`this`，让父类的构造函数把成员属性和方法都挂到`子类的this`上去，这样既能避免实例之间共享一个原型实例，又能向父类构造方法传参
+即在子类的构造函数中执行父类的构造函数，并为其绑定子类的`this`，让父类的构造函数把成员属性和方法都挂到`子类的this`上去，这样既能避免实例之间共享一个原型实例，又能向父类构造方法传参
 
 ```js
 function Parent(name) {

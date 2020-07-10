@@ -182,7 +182,7 @@ function is(x, y) {
 const throttle = (fn, interval) => {
   let last = 0;
   return (...args) => {
-    const now = Number(new Date())
+    const now = Date.now();
     // const now = +new Date();
     // 还没到时间
     if (now - last < interval) return;
@@ -564,4 +564,32 @@ Array.prototype.pop = function () {
   O.length = len;
   return value;
 };
+```
+
+#### 实现一个抓包请求
+
+这块一开始没了解清楚面试官的要求，然后具体问了下，最终理解下来是需要实现一个并发限制功能。
+
+```js
+function asyncPool(poolLimit, array, iteratorFn) {
+  let i = 0;
+  const ret = [];
+  const executing = [];
+  const enqueue = function () {
+    if (i === array.length) {
+      return Promise.resolve();
+    }
+    const item = array[i++];
+    const p = Promise.resolve().then(() => iteratorFn(item, array));
+    ret.push(p);
+    const e = p.then(() => executing.splice(executing.indexOf(e), 1));
+    executing.push(e);
+    let r = Promise.resolve();
+    if (executing.length >= poolLimit) {
+      r = Promise.race(executing);
+    }
+    return r.then(() => enqueue());
+  };
+  return enqueue().then(() => Promise.all(ret));
+}
 ```

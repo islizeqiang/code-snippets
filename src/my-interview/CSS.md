@@ -315,9 +315,9 @@ steps(number, position)
   - `start`：表示直接开始。
 
     ![start执行的关键点](https://image.zhangxinxu.com/image/blog/201806/2018-06-11_223135.png)
-  
+
   - `end`：表示戛然而止。是默认值。
-  
+
     ![end执行的关键点](https://image.zhangxinxu.com/image/blog/201806/2018-06-11_223630.png)
 
 ## 你了解 CSS Flex 和 Grid 吗
