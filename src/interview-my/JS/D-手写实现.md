@@ -1,5 +1,33 @@
 [TOC]
 
+## 手写一个 const
+
+```js
+function _const(key, value) {
+  const desc = {
+    value,
+    writable: false,
+  };
+  Object.defineProperty(window, key, desc);
+}
+
+_const('obj', { a: 1 }); //定义obj
+obj.b = 2; //可以正常给obj的属性赋值
+obj = {}; //无法赋值新对象
+```
+
+## 手写一个 let
+
+```js
+(function () {
+  for (var i = 0; i < 5; i++) {
+    console.log(i); // 0 1 2 3 4
+  }
+})();
+
+console.log(i); // Uncaught ReferenceError: i is not defined
+```
+
 ## 手写一个 new
 
 1. 新生成了一个对象
@@ -154,7 +182,8 @@ function is(x, y) {
 const throttle = (fn, interval) => {
   let last = 0;
   return (...args) => {
-    const now = +new Date();
+    const now = Date.now();
+    // const now = +new Date();
     // 还没到时间
     if (now - last < interval) return;
     last = now;
@@ -473,107 +502,6 @@ Array.prototype.reduce = function (callbackfn, initialValue) {
 };
 ```
 
-## 手写一个数组 splice 方法
-
-```js
-const sliceDeleteElements = (array, startIndex, deleteCount, deleteArr) => {
-  for (let i = 0; i < deleteCount; i++) {
-    let index = startIndex + i;
-    if (index in array) {
-      let current = array[index];
-      deleteArr[i] = current;
-    }
-  }
-};
-
-const movePostElements = (array, startIndex, len, deleteCount, addElements) => {
-  // 如果添加的元素和删除的元素个数相等，相当于元素的替换，数组长度不变，被删除元素后面的元素不需要挪动
-  if (deleteCount === addElements.length) return;
-  // 如果添加的元素和删除的元素个数不相等，则移动后面的元素
-  else if (deleteCount > addElements.length) {
-    // 删除的元素比新增的元素多，那么后面的元素整体向前挪动
-    // 一共需要挪动 len - startIndex - deleteCount 个元素
-    for (let i = startIndex + deleteCount; i < len; i++) {
-      let fromIndex = i;
-      // 将要挪动到的目标位置
-      let toIndex = i - (deleteCount - addElements.length);
-      if (fromIndex in array) {
-        array[toIndex] = array[fromIndex];
-      } else {
-        delete array[toIndex];
-      }
-    }
-    // 注意注意！这里我们把后面的元素向前挪，相当于数组长度减小了，需要删除冗余元素
-    // 目前长度为 len + addElements - deleteCount
-    for (let i = len - 1; i >= len + addElements.length - deleteCount; i--) {
-      delete array[i];
-    }
-  } else if (deleteCount < addElements.length) {
-    // 删除的元素比新增的元素少，那么后面的元素整体向后挪动
-    // 思考一下: 这里为什么要从后往前遍历？从前往后会产生什么问题？
-    for (let i = len - 1; i >= startIndex + deleteCount; i--) {
-      let fromIndex = i;
-      // 将要挪动到的目标位置
-      let toIndex = i + (addElements.length - deleteCount);
-      if (fromIndex in array) {
-        array[toIndex] = array[fromIndex];
-      } else {
-        delete array[toIndex];
-      }
-    }
-  }
-};
-
-const computeStartIndex = (startIndex, len) => {
-  // 处理索引负数的情况
-  if (startIndex < 0) {
-    return startIndex + len > 0 ? startIndex + len : 0;
-  }
-  return startIndex >= len ? len : startIndex;
-};
-
-const computeDeleteCount = (startIndex, len, deleteCount, argumentsLen) => {
-  // 删除数目没有传，默认删除startIndex及后面所有的
-  if (argumentsLen === 1) return len - startIndex;
-  // 删除数目过小
-  if (deleteCount < 0) return 0;
-  // 删除数目过大
-  if (deleteCount > len - deleteCount) return len - startIndex;
-  return deleteCount;
-};
-
-Array.prototype.splice = function (startIndex, deleteCount, ...addElements) {
-  let argumentsLen = arguments.length;
-  let array = Object(this);
-  let len = array.length >>> 0;
-  let deleteArr = new Array(deleteCount);
-
-  startIndex = computeStartIndex(startIndex, len);
-  deleteCount = computeDeleteCount(startIndex, len, deleteCount, argumentsLen);
-
-  // 判断 sealed 对象和 frozen 对象, 即 密封对象 和 冻结对象
-  if (Object.isSealed(array) && deleteCount !== addElements.length) {
-    throw new TypeError('the object is a sealed object!');
-  } else if (Object.isFrozen(array) && (deleteCount > 0 || addElements.length > 0)) {
-    throw new TypeError('the object is a frozen object!');
-  }
-
-  // 拷贝删除的元素
-  sliceDeleteElements(array, startIndex, deleteCount, deleteArr);
-  // 移动删除元素后面的元素
-  movePostElements(array, startIndex, len, deleteCount, addElements);
-
-  // 插入新元素
-  for (let i = 0; i < addElements.length; i++) {
-    array[startIndex + i] = addElements[i];
-  }
-
-  array.length = len - deleteCount + addElements.length;
-
-  return deleteArr;
-};
-```
-
 ## 手写一个数组 filter 方法
 
 ```js
@@ -638,129 +566,30 @@ Array.prototype.pop = function () {
 };
 ```
 
-## 手写一个数组的 sort 方法
+#### 实现一个抓包请求
+
+这块一开始没了解清楚面试官的要求，然后具体问了下，最终理解下来是需要实现一个并发限制功能。
 
 ```js
-const sort = (arr, comparefn) => {
-  let array = Object(arr);
-  let length = array.length >>> 0;
-  return InnerArraySort(array, length, comparefn);
-};
-
-const InnerArraySort = (array, length, comparefn) => {
-  // 比较函数未传入
-  if (Object.prototype.toString.call(comparefn) !== '[object Function]') {
-    comparefn = function (x, y) {
-      if (x === y) return 0;
-      x = x.toString();
-      y = y.toString();
-      if (x == y) return 0;
-      else return x < y ? -1 : 1;
-    };
-  }
-  const insertSort = (arr, start = 0, end) => {
-    end = end || arr.length;
-    for (let i = start; i < end; i++) {
-      let e = arr[i];
-      let j;
-      for (j = i; j > start && comparefn(arr[j - 1], e) > 0; j--) arr[j] = arr[j - 1];
-      arr[j] = e;
+function asyncPool(poolLimit, array, iteratorFn) {
+  let i = 0;
+  const ret = [];
+  const executing = [];
+  const enqueue = function () {
+    if (i === array.length) {
+      return Promise.resolve();
     }
-    return;
-  };
-  const getThirdIndex = (a, from, to) => {
-    let tmpArr = [];
-    // 递增量，200~215 之间，因为任何正数和15做与操作，不会超过15，当然是大于0的
-    let increment = 200 + ((to - from) & 15);
-    let j = 0;
-    from += 1;
-    to -= 1;
-    for (let i = from; i < to; i += increment) {
-      tmpArr[j] = [i, a[i]];
-      j++;
+    const item = array[i++];
+    const p = Promise.resolve().then(() => iteratorFn(item, array));
+    ret.push(p);
+    const e = p.then(() => executing.splice(executing.indexOf(e), 1));
+    executing.push(e);
+    let r = Promise.resolve();
+    if (executing.length >= poolLimit) {
+      r = Promise.race(executing);
     }
-    // 把临时数组排序，取中间的值，确保哨兵的值接近平均位置
-    tmpArr.sort(function (a, b) {
-      return comparefn(a[1], b[1]);
-    });
-    let thirdIndex = tmpArr[tmpArr.length >> 1][0];
-    return thirdIndex;
+    return r.then(() => enqueue());
   };
-
-  const _sort = (a, b, c) => {
-    let arr = [];
-    arr.push(a, b, c);
-    insertSort(arr, 0, 3);
-    return arr;
-  };
-
-  const quickSort = (a, from, to) => {
-    //哨兵位置
-    let thirdIndex = 0;
-    while (true) {
-      if (to - from <= 10) {
-        insertSort(a, from, to);
-        return;
-      }
-      if (to - from > 1000) {
-        thirdIndex = getThirdIndex(a, from, to);
-      } else {
-        // 小于1000 直接取中点
-        thirdIndex = from + ((to - from) >> 2);
-      }
-      let tmpArr = _sort(a[from], a[thirdIndex], a[to - 1]);
-      a[from] = tmpArr[0];
-      a[thirdIndex] = tmpArr[1];
-      a[to - 1] = tmpArr[2];
-      // 现在正式把 thirdIndex 作为哨兵
-      let pivot = a[thirdIndex];
-      [a[from], a[thirdIndex]] = [a[thirdIndex], a[from]];
-      // 正式进入快排
-      let lowEnd = from + 1;
-      let highStart = to - 1;
-      a[thirdIndex] = a[lowEnd];
-      a[lowEnd] = pivot;
-      // [lowEnd, i)的元素是和pivot相等的
-      // [i, highStart) 的元素是需要处理的
-      for (let i = lowEnd + 1; i < highStart; i++) {
-        let element = a[i];
-        let order = comparefn(element, pivot);
-        if (order < 0) {
-          a[i] = a[lowEnd];
-          a[lowEnd] = element;
-          lowEnd++;
-        } else if (order > 0) {
-          do {
-            highStart--;
-            if (highStart === i) break;
-            order = comparefn(a[highStart], pivot);
-          } while (order > 0);
-          // 现在 a[highStart] <= pivot
-          // a[i] > pivot
-          // 两者交换
-          a[i] = a[highStart];
-          a[highStart] = element;
-          if (order < 0) {
-            // a[i] 和 a[lowEnd] 交换
-            element = a[i];
-            a[i] = a[lowEnd];
-            a[lowEnd] = element;
-            lowEnd++;
-          }
-        }
-      }
-      // 永远切分大区间
-      if (lowEnd - from > to - highStart) {
-        // 单独处理小区间
-        quickSort(a, highStart, to);
-        // 继续切分lowEnd ~ from 这个区间
-        to = lowEnd;
-      } else if (lowEnd - from <= to - highStart) {
-        quickSort(a, from, lowEnd);
-        from = highStart;
-      }
-    }
-  };
-  quickSort(array, 0, length);
-};
+  return enqueue().then(() => Promise.all(ret));
+}
 ```

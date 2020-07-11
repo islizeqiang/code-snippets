@@ -66,7 +66,7 @@ const user = UserFactory.createUser('cxk', 'user');
 
 - 观察者模式
 
-观察者模式算是前端最常用的设计模式了，观察者模式概念很简单：观察者监听被观察者的变化，被观察者发生改变时，通知所有的观察者。观察者模式被广泛用于监听事件的实现，有关观察者模式的详细应用，可以看我另一篇讲解[Redux 实现的文章](https://juejin.im/post/5def4831e51d45584b585000#heading-3)
+观察者模式算是前端最常用的设计模式了，观察者模式概念很简单：观察者监听被观察者的变化，被观察者发生改变时，通知所有的观察者。观察者模式被广泛用于监听事件的实现。
 
 ```js
 //观察者
@@ -174,8 +174,6 @@ const agent = new Proxy(idol, {
 agent.phone; //经纪人电话:10010
 agent.price = 100; //Uncaught Error: 报价过低
 ```
-
-![img](https://user-gold-cdn.xitu.io/2020/4/5/171465b92f6ded5e?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
 
 ## 单一职责原则和开放封闭原则
 

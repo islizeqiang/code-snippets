@@ -187,8 +187,8 @@ BFC 主要的作用是：
 /* 单行： */
 .single-line {
   overflow: hidden;
-  text-overflow: ellipsis;
   white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 /* 多行： */
@@ -196,8 +196,10 @@ BFC 主要的作用是：
 .multi-line {
   overflow: hidden;
   text-overflow: ellipsis;
+
   /* 用来限制一个块元素显示的文本的行数 */
   -webkit-line-clamp: 3;
+
   /* 设置或检索伸缩盒对象的子元素的排列方式 */
   -webkit-box-orient: vertical;
 }
@@ -643,6 +645,22 @@ _媒体类型_（_Media types_）描述设备的一般类别。除非使用 `not
 1.  break-inside: avoid; 描述了在多列布局页面下的内容盒子如何中断
 
 avoid: 避免在主体框中插入任何中断
+
+## 三角形
+
+```css
+.box {
+  /* 内部大小 */
+  width: 0;
+  height: 0;
+  border-width: 85px;
+
+  /* 边框大小 只设置三条边 */
+  border-top: #4285f4 solid;
+  border-right: transparent solid;
+  border-left: transparent solid;
+}
+```
 
 ## object-fit 属性
 
