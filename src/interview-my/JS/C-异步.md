@@ -95,3 +95,51 @@ fetch(myRequest)
 ## forEach 中用 await 会产生什么问题？怎么解决？
 
 forEach 不能保证执行顺序，callback 会一起执行，不能保证异步执行顺序，但可以采用 for...of 解决，通过迭代器去遍历。
+
+```js
+async function test() {
+	let arr = [4, 2, 1]
+	arr.forEach(async item => {
+		const res = await handle(item)
+		console.log(res)
+	})
+	console.log('结束')
+}
+
+function handle(x) {
+	return new Promise((resolve, reject) => {
+		setTimeout(() => {
+			resolve(x)
+		}, 1000 * x)
+	})
+}
+
+test()
+```
+
+```js
+async function test() {
+  let arr = [4, 2, 1]
+  for(const item of arr) {
+		const res = await handle(item)
+		console.log(res)
+  }
+	console.log('结束')
+}
+```
+
+```js
+async function test() {
+  let arr = [4, 2, 1]
+  let iterator = arr[Symbol.iterator]();
+  let res = iterator.next();
+  while(!res.done) {
+    let value = res.value;
+    console.log(value);
+    await handle(value);
+    res = iterater.next();
+  }
+	console.log('结束')
+}
+```
+
