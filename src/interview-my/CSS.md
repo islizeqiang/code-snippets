@@ -90,13 +90,11 @@ div table form canvas header section
 
 ## BFC 及其应用
 
-BFC 就是块级格式上下文，是页面盒模型布局中的一种 CSS 渲染模式，相当于一个独立的容器，里面的元素和外部的元素相互不影响。创建 BFC 的方式有：
+BFC 就是块级格式上下文，里面的元素和外部的元素相互不影响。创建 BFC 的方式有：
 
-1. html 根元素
-2. float 浮动 值不为 none
+1. overflow 不为 visible
+2. float 不为 none
 3. position 的值不是 static 和 relative
-4. overflow 不为 visible
-5. `display`的值是`table-cell`、`table-caption`、`inline-block`、`flex`、或`inline-flex`。
 
 BFC 主要的作用是：
 

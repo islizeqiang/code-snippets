@@ -185,9 +185,11 @@ JS 引擎中对变量的存储主要有两种位置，栈内存和堆内存。
 
 - 分类
 
-  - 宏任务(macro-task / task)：script(整体代码), setTimeout, setInterval, **setImmediate**, I/O 操作，UI 渲染等。
+  - 宏任务(macro-task / task)：script(整体代码)， setTimeout，setInterval，setImmediate， I/O 操作，UI 渲染等。
 
-  - 微任务(micro-task / jobs)：promise.then 还包括 V8 的垃圾回收过程。
+  - 微任务(micro-task / jobs)：promise.then，V8 的垃圾回收过程。
+
+    process.nextTick 是一个独立于 eventLoop 的任务队列。
 
     > 引入微任务的作用在于解决异步回调的问题
 
