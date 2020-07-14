@@ -178,6 +178,9 @@ function Child() {
 //原型链继承
 // Child.prototype = new Parent()
 Child.prototype = Object.create(Parent.prototype); //将`指向父类实例`改为`指向父类原型`
+
+// 原型对象都有constructor属性,修改prototype指向后一定要修正构造函数
+// 否则会指向Parent
 Child.prototype.constructor = Child;
 
 //测试
